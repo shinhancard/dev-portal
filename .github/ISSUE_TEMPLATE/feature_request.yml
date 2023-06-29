@@ -1,6 +1,6 @@
 name: "Feature Request"
 description: 개발자 포탈에 대한 추가 기능 / 개선점 제시
-title: "feat: As a user, I want to ..., so that ..."
+title: "feat: ...에 대한 ...기능 추가"
 labels: [enhancement]
 body:
   - type: markdown
