@@ -8,7 +8,7 @@ body:
       value: |
         - Use Korean / English to communicate.
     
-    - type: textarea
+  - type: textarea
     id: security_issue
     attributes:
       label: issue
