@@ -1,8 +1,8 @@
 ---
-name: Document
+name: Documentation
 about: Wiki / Discussions등 문서 관련
 title: ''
-labels: ''
+labels: documentation
 assignees: ''
 
 ---
