@@ -1,7 +1,7 @@
 name: "Request Help"
 description:  잘 모르겠는 부분 또는 원인을 알 수 없음
 title: "help request: "
-label: ["help"]
+labels: ["help"]
 body:
   - type: markdown
     attributes:

@@ -1,7 +1,7 @@
 name: "Security Report"
 description:  현 프로젝트에 대한 보안 문제를 공유
 title: "security report: "
-label: ["security"]
+labels: ["security"]
 body:
   - type: markdown
     attributes:
