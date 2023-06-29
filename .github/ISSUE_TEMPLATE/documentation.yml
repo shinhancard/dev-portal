@@ -1,0 +1,27 @@
+name: "Documentation Issue"
+description: 문서 (wiki / discussions)에 관련된 이슈.
+title: "docs: "
+labels: [doc]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        - Use Korean / English to communicate.
+  - type: textarea
+    id: current-state
+    attributes:
+      label: Current State
+      description: 기존 문서에 대한 상태를 기술.
+      placeholder: |
+        API문서(URL 명시)에 대한 스펙 누락등...
+    validations:
+      required: true
+  - type: textarea
+    id: desired-state
+    attributes:
+      label: Desired State
+      description: 문서가 바뀌어야 하는 방향
+      placeholder: |
+        API문서(URL 명시)에 대한 스펙 추가 후 아래와 같이 변경...
+    validations:
+      required: true

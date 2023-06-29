@@ -1,0 +1,19 @@
+name: "Feature Request"
+description: 개발자 포탈에 대한 추가 기능 / 개선점 제시
+title: "feat: As a user, I want to ..., so that ..."
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        - Use Korean / English to communicate.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: 추가하고 싶은 기능을 설명.
+      placeholder: |
+        ~를 위한 기능을 ~에 추가하려함...
+    validations:
+      required: true
