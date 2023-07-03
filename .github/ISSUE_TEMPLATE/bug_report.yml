@@ -1,0 +1,57 @@
+name: Bug Report
+description: File a bug report
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use Korean / English to communicate
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: Bug Description
+      description: 버그에 대한 단순 설명
+      placeholder: 
+      value: "SW 템플릿이 생성되지 않는 버그 발생!"
+    validations:
+      required: true
+
+  - type: textarea
+    id: version
+    attributes:
+      label: Version
+      description: dev portal과 backstage 버전
+      value: |
+        backstage: 1.0.0 (Default)
+        devportal: 1.0.1 (Beta)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: Dev Portal 구동 브라우저 환경
+      multiple: true
+      options:
+        - Firefox
+        - Chrome
+        - Safari
+        - Microsoft Edge
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 관련 로그 
+      description: 로그 전체에 대한 복사 첨부 (캡처 X!!)
+      render: shell
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/hellices/dev-portal/wiki/Code-of-Conduct)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

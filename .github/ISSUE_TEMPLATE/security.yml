@@ -1,0 +1,46 @@
+name: "Security Report"
+description:  현 프로젝트에 대한 보안 문제를 공유
+title: "security report: "
+labels: ["security"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        - Use Korean / English to communicate.
+    
+  - type: textarea
+    id: security_issue
+    attributes:
+      label: issue
+      description: 보안 이슈에 대한 요약
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: 해당 보안 이슈에 대해 상세 기술 & 관련 링크
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: 이슈가 영향을 미칠 수 있는 버전과 환경 
+      value: |
+        - DevPortal version :
+        - Backstage version (run `backstage-cli version`):
+        - OS Type / Version :
+        - React/ NodeJS version :
+    validations:
+      required: true
+
+  - type: textarea
+    id: code_link
+    attributes:
+      label: code
+      description: 이슈의 원인이 되는 코드 / 모듈 링크 
+    validations:
+      required: true
