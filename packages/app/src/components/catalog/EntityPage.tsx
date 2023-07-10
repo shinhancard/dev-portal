@@ -1,65 +1,59 @@
 import React from 'react';
-import { Button, Grid } from '@material-ui/core';
+import {Button, Grid} from '@material-ui/core';
 import {
-  EntityApiDefinitionCard,
-  EntityConsumedApisCard,
-  EntityConsumingComponentsCard,
-  EntityHasApisCard,
-  EntityProvidedApisCard,
-  EntityProvidingComponentsCard,
+    EntityApiDefinitionCard,
+    EntityConsumedApisCard,
+    EntityConsumingComponentsCard,
+    EntityHasApisCard,
+    EntityProvidedApisCard,
+    EntityProvidingComponentsCard,
 } from '@backstage/plugin-api-docs';
 import {
-  EntityAboutCard,
-  EntityDependsOnComponentsCard,
-  EntityDependsOnResourcesCard,
-  EntityHasComponentsCard,
-  EntityHasResourcesCard,
-  EntityHasSubcomponentsCard,
-  EntityHasSystemsCard,
-  EntityLayout,
-  EntityLinksCard,
-  EntitySwitch,
-  EntityOrphanWarning,
-  EntityProcessingErrorsPanel,
-  isComponentType,
-  isKind,
-  hasCatalogProcessingErrors,
-  isOrphan,
+    EntityAboutCard,
+    EntityDependsOnComponentsCard,
+    EntityDependsOnResourcesCard,
+    EntityHasComponentsCard,
+    EntityHasResourcesCard,
+    EntityHasSubcomponentsCard,
+    EntityHasSystemsCard,
+    EntityLayout,
+    EntityLinksCard,
+    EntityOrphanWarning,
+    EntityProcessingErrorsPanel,
+    EntitySwitch,
+    hasCatalogProcessingErrors,
+    isComponentType,
+    isKind,
+    isOrphan,
 } from '@backstage/plugin-catalog';
+import {EntityGithubActionsContent, isGithubActionsAvailable,} from '@backstage/plugin-github-actions';
 import {
-  isGithubActionsAvailable,
-  EntityGithubActionsContent,
-} from '@backstage/plugin-github-actions';
-import {
-  EntityUserProfileCard,
-  EntityGroupProfileCard,
-  EntityMembersListCard,
-  EntityOwnershipCard,
+    EntityGroupProfileCard,
+    EntityMembersListCard,
+    EntityOwnershipCard,
+    EntityUserProfileCard,
 } from '@backstage/plugin-org';
-import { EntityTechdocsContent } from '@backstage/plugin-techdocs';
-import { EmptyState } from '@backstage/core-components';
+import {EntityTechdocsContent} from '@backstage/plugin-techdocs';
+import {EmptyState} from '@backstage/core-components';
+import {Direction, EntityCatalogGraphCard,} from '@backstage/plugin-catalog-graph';
 import {
-  Direction,
-  EntityCatalogGraphCard,
-} from '@backstage/plugin-catalog-graph';
-import {
-  RELATION_API_CONSUMED_BY,
-  RELATION_API_PROVIDED_BY,
-  RELATION_CONSUMES_API,
-  RELATION_DEPENDENCY_OF,
-  RELATION_DEPENDS_ON,
-  RELATION_HAS_PART,
-  RELATION_PART_OF,
-  RELATION_PROVIDES_API,
+    RELATION_API_CONSUMED_BY,
+    RELATION_API_PROVIDED_BY,
+    RELATION_CONSUMES_API,
+    RELATION_DEPENDENCY_OF,
+    RELATION_DEPENDS_ON,
+    RELATION_HAS_PART,
+    RELATION_PART_OF,
+    RELATION_PROVIDES_API,
 } from '@backstage/catalog-model';
 
-import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
-import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
+import {TechDocsAddons} from '@backstage/plugin-techdocs-react';
+import {ReportIssue} from '@backstage/plugin-techdocs-module-addons-contrib';
 
-import {
-    EntityCircleCIContent,
-    isCircleCIAvailable,
-} from '@backstage/plugin-circleci';
+import {EntityCircleCIContent, isCircleCIAvailable,} from '@backstage/plugin-circleci';
+
+// packages/app/src/components/catalog/EntityPage.tsx
+import {EntityGitlabContent, isGitlabAvailable,} from '@immobiliarelabs/backstage-plugin-gitlab';
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -68,6 +62,7 @@ const techdocsContent = (
     </TechDocsAddons>
   </EntityTechdocsContent>
 );
+
 
 const cicdContent = (
   // This is an example of how you can implement your company's logic in entity page.
@@ -136,6 +131,7 @@ const overviewContent = (
     <Grid item md={8} xs={12}>
       <EntityHasSubcomponentsCard variant="gridItem" />
     </Grid>
+
   </Grid>
 );
 
@@ -159,6 +155,15 @@ const serviceEntityPage = (
         </Grid>
       </Grid>
     </EntityLayout.Route>
+
+      <EntityLayout.Route
+          if={isGitlabAvailable}
+          path="/gitlab"
+          title="Gitlab"
+      >
+          <EntityGitlabContent/>
+
+      </EntityLayout.Route>
 
     <EntityLayout.Route path="/dependencies" title="Dependencies">
       <Grid container spacing={3} alignItems="stretch">

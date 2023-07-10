@@ -34,6 +34,7 @@ spec:
           ui:options:
             allowedHosts:
               - github.com
+              - gitlab.com
 
   # These steps are executed in the scaffolder backend, using data that we gathered
   # via the parameters above.
@@ -52,7 +53,7 @@ spec:
       name: Publish
       action: publish:github
       input:
-        allowedHosts: ['github.com']
+        allowedHosts: ['github.com','gitlab.com']
         description: This is ${{ parameters.name }}
         repoUrl: ${{ parameters.repoUrl }}
 
