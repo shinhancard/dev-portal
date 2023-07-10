@@ -26,34 +26,41 @@ import {
     isKind,
     isOrphan,
 } from '@backstage/plugin-catalog';
-import {EntityGithubActionsContent, isGithubActionsAvailable,} from '@backstage/plugin-github-actions';
 import {
-    EntityGroupProfileCard,
-    EntityMembersListCard,
-    EntityOwnershipCard,
-    EntityUserProfileCard,
+  isGithubActionsAvailable,
+  EntityGithubActionsContent,
+} from '@backstage/plugin-github-actions';
+import {
+  EntityUserProfileCard,
+  EntityGroupProfileCard,
+  EntityMembersListCard,
+  EntityOwnershipCard,
 } from '@backstage/plugin-org';
-import {EntityTechdocsContent} from '@backstage/plugin-techdocs';
-import {EmptyState} from '@backstage/core-components';
-import {Direction, EntityCatalogGraphCard,} from '@backstage/plugin-catalog-graph';
+import { EntityTechdocsContent } from '@backstage/plugin-techdocs';
+import { EmptyState } from '@backstage/core-components';
 import {
-    RELATION_API_CONSUMED_BY,
-    RELATION_API_PROVIDED_BY,
-    RELATION_CONSUMES_API,
-    RELATION_DEPENDENCY_OF,
-    RELATION_DEPENDS_ON,
-    RELATION_HAS_PART,
-    RELATION_PART_OF,
-    RELATION_PROVIDES_API,
+  Direction,
+  EntityCatalogGraphCard,
+} from '@backstage/plugin-catalog-graph';
+import {
+  RELATION_API_CONSUMED_BY,
+  RELATION_API_PROVIDED_BY,
+  RELATION_CONSUMES_API,
+  RELATION_DEPENDENCY_OF,
+  RELATION_DEPENDS_ON,
+  RELATION_HAS_PART,
+  RELATION_PART_OF,
+  RELATION_PROVIDES_API,
 } from '@backstage/catalog-model';
 
-import {TechDocsAddons} from '@backstage/plugin-techdocs-react';
-import {ReportIssue} from '@backstage/plugin-techdocs-module-addons-contrib';
+import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
+import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 
-import {EntityCircleCIContent, isCircleCIAvailable,} from '@backstage/plugin-circleci';
-
-// packages/app/src/components/catalog/EntityPage.tsx
 import {EntityGitlabContent, isGitlabAvailable,} from '@immobiliarelabs/backstage-plugin-gitlab';
+import {
+    EntityCircleCIContent,
+    isCircleCIAvailable,
+} from '@backstage/plugin-circleci';
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -62,7 +69,6 @@ const techdocsContent = (
     </TechDocsAddons>
   </EntityTechdocsContent>
 );
-
 
 const cicdContent = (
   // This is an example of how you can implement your company's logic in entity page.
@@ -131,7 +137,6 @@ const overviewContent = (
     <Grid item md={8} xs={12}>
       <EntityHasSubcomponentsCard variant="gridItem" />
     </Grid>
-
   </Grid>
 );
 

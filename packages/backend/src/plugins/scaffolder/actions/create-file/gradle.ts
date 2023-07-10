@@ -1,4 +1,4 @@
-export function createGradle(dependencies: undefined[]): string{
+export function createGradle(dependencies: Dependency[]): string{
     let dependency;
     for(dependency in dependencies){
         console.log(dependency);
@@ -6,5 +6,15 @@ export function createGradle(dependencies: undefined[]): string{
         console.log(dependency.dependency-name);
         console.log(dependency.version);
     }
-    return dependencies.join('\n');
+    const content = dependencies
+        .map(dep => `type: ${dep.type}, dependency: ${dep.dependency}, version: ${dep.version}`)
+        .join('\n');
+    return content;
+}
+
+
+interface Dependency {
+    type: string;
+    dependency: string;
+    version: string;
 }
