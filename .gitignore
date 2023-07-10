@@ -49,3 +49,6 @@ site
 
 # vscode database functionality support files
 *.session.sql
+
+# templates 별도 관리
+dev-portal-catalog-template

@@ -36,6 +36,8 @@
     "@immobiliarelabs/backstage-plugin-gitlab-backend": "^6.0.0",
     "@premise/plugin-form-data-backend": "^0.0.1",
     "@immobiliarelabs/backstage-plugin-gitlab-backend": "^6.0.0",
+    "@premise/plugin-form-data-backend": "^0.0.1",
+    "@immobiliarelabs/backstage-plugin-gitlab-backend": "^6.0.0",
     "app": "link:../app",
     "better-sqlite3": "^8.0.0",
     "dockerode": "^3.3.1",

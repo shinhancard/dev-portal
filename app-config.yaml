@@ -102,6 +102,18 @@ catalog:
       rules:
         - allow: [ Template ]
 
+    # Local example template
+    - type: file
+      target: ../../examples/template/template2.yaml
+      rules:
+        - allow: [ Template ]
+
+    # url example template
+    - type: url
+      target: https://github.com/shinhancard/dev-portal-catalog-template/blob/main/frd-core-template/template.yaml
+      rules:
+        - allow: [ Template ]
+
     # Local example organizational data
     - type: file
       target: ../../examples/org.yaml
