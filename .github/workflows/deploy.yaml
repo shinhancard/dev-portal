@@ -1,4 +1,4 @@
-name: learn-github-actions
+name: Build & Push Image to ECR
 
 on:
     push:
@@ -6,10 +6,8 @@ on:
         - main
         - feature*
 env:
-  ECR_REPOSITORY: swa-ecr
-  EKS_SERVICE: 
-  EKS_CLUSTER:
-  EKS_TASK_DEFINITION:
+  ECR_REPOSITORY: swa-ecr 
+  EKS_CLUSTER: SHCW-AN2-RND-EKS-1
   CONTAINER_NAME: backstage
 
 permissions:
@@ -23,7 +21,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-            role-to-assume: 
+            role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
             aws-region: ap-northeast-2
 
   build:
@@ -52,5 +50,13 @@ jobs:
         run: |
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
-
-
+    
+  # deploy:
+  #   name: deploy image to eks
+  #   runs-on: main
+  #   steps:
+  #     - name: EKS Service
+  #       id: eks_service_deployment
+  #       uses: aws-actions/amazon-eks-login@v1
+  #       run: |
+  #         kubectl apply -f kubernetes/backstage.yaml
