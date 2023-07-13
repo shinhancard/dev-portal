@@ -26,6 +26,10 @@ jobs:
             role-session-name: SANDBOX-PUB-IAMR-GITHUB
             aws-region: ${{ env.AWS_REGION }}
       - run: aws sts get-caller-identity
+      
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
 
   build:
     needs: load_config
