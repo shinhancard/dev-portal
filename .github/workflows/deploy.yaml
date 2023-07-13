@@ -64,7 +64,7 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           DOCKER_BUILDKIT=1 yarn build-image --tag backstage:$IMAGE_TAG
-          docker tag backstage:$IMAGE_TAG $REGISTRY/$REPOSITORY:$IMAGE_TAG
+          docker tag backstage:$IMAGE_TAG $REGISTRY/$REPOSITORY/backstage:$IMAGE_TAG
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
     
