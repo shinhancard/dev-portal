@@ -4,11 +4,12 @@ on:
     push:
       branches:
         - main
-        - feature*
+        - 'feature/**'
 env:
   ECR_REPOSITORY: swa-ecr 
   EKS_CLUSTER: SHCW-AN2-RND-EKS-1
   CONTAINER_NAME: backstage
+  AWS_REGION : ap-northeast-2
 
 permissions:
     id-token: write   
@@ -16,28 +17,36 @@ permissions:
 
 jobs:
   load_config:
-    runs-on: main
+    runs-on: ubuntu-latest
     steps:
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
             role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-            aws-region: ap-northeast-2
+            aws-region: ${{ env.AWS_REGION }}
 
   build:
+    needs: load_config
     name: build image 
-    runs-on: feature*, main
+    runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - uses: docker/setup-buildx-action@v2
       - name: install dependency packages 
         run: yarn install
+      - name: Test unit
+        run: yarn test
       - name: Build yarn dependencies
         run: yarn build:all
       - name: Copy & build to Docker
-        run: yarn build-image --tag ${{ github.sha }}    
+        run: DOCKER_BUILDKIT=1  yarn build-image --tag ${{ github.sha }}    
 
   push:
+    if: ${{ always() }}
+    needs: [load_config,build]
     name: push image to ecr
-    runs-on: main
+    runs-on: ubuntu-latest
     steps:
       - name: Login to Amazon ECR
         id: login-ecr
@@ -56,7 +65,8 @@ jobs:
   #   runs-on: main
   #   steps:
   #     - name: EKS Service
-  #       id: eks_service_deployment
-  #       uses: aws-actions/amazon-eks-login@v1
-  #       run: |
-  #         kubectl apply -f kubernetes/backstage.yaml
+  #       uses: koslibpro/helm-eks-action@master
+  #       env: 
+  #         KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+  #       with:
+  #         command: kubectl apply -f kubernetes/backstage.yaml
