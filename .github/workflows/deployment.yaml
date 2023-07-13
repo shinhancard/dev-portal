@@ -1,0 +1,56 @@
+name: learn-github-actions
+
+on:
+    push:
+      branches:
+        - main
+        - feature*
+env:
+  ECR_REPOSITORY: swa-ecr
+  EKS_SERVICE: 
+  EKS_CLUSTER:
+  EKS_TASK_DEFINITION:
+  CONTAINER_NAME: backstage
+
+permissions:
+    id-token: write   
+    contents: read    
+
+jobs:
+  load_config:
+    runs-on: main
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+            role-to-assume: 
+            aws-region: ap-northeast-2
+
+  build:
+    name: build image 
+    runs-on: feature*, main
+    steps:
+      - name: install dependency packages 
+        run: yarn install
+      - name: Build yarn dependencies
+        run: yarn build:all
+      - name: Copy & build to Docker
+        run: yarn build-image --tag ${{ github.sha }}    
+
+  push:
+    name: push image to ecr
+    runs-on: main
+    steps:
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: push to ecr repo
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+
+
