@@ -1,0 +1,62 @@
+name: Build & Push Image to ECR
+
+on:
+    push:
+      branches:
+        - main
+        - feature*
+env:
+  ECR_REPOSITORY: swa-ecr 
+  EKS_CLUSTER: SHCW-AN2-RND-EKS-1
+  CONTAINER_NAME: backstage
+  AWS_REGION : ap-northeast-2
+
+permissions:
+    id-token: write   
+    contents: read    
+
+jobs:
+  load_config:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+            role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+            aws-region: ${{ env.AWS_REGION }}
+
+  build:
+    needs: load_config
+    name: build image 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - uses: docker/setup-buildx-action@v2
+      - name: install dependency packages 
+        run: yarn install
+      - name: Test unit
+        run: yarn test
+      - name: Build yarn dependencies
+        run: yarn build:all
+      - name: Copy & build to Docker
+        run: DOCKER_BUILDKIT=1  yarn build-image --tag ${{ github.sha }}    
+
+  push:
+    if: ${{ always() }}
+    needs: [load_config,build]
+    name: push image to ecr
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: push to ecr repo
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+    
