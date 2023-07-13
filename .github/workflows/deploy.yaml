@@ -31,10 +31,13 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-  build:
-    needs: load_config
-    name: build image 
+
+  build_push:
+    if: ${{ always() }}
+    needs: [load_config]
+    name: push image to ecr
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -45,15 +48,6 @@ jobs:
         run: yarn test
       - name: Build yarn dependencies
         run: yarn build:all
-  push:
-    if: ${{ always() }}
-    needs: [load_config,build]
-    name: push image to ecr
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
