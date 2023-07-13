@@ -65,7 +65,7 @@ jobs:
         run: |
           DOCKER_BUILDKIT=1 yarn build-image --tag backstage:$IMAGE_TAG
           docker tag docker.io/library/backstage:$IMAGE_TAG $REGISTRY/$ECR_REPOSITORY/backstage:$IMAGE_TAG
-          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+          docker push $REGISTRY/$ECR_REPOSITORY/backstage:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
     
   # deploy:
