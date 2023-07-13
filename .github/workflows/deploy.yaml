@@ -9,15 +9,14 @@ env:
   ECR_REPOSITORY: swa-ecr 
   EKS_CLUSTER: SHCW-AN2-RND-EKS-1
   CONTAINER_NAME: backstage
-  AWS_REGION : ap-northeast-2
-
-permissions:
-    id-token: write   
-    contents: read    
+  AWS_REGION : ap-northeast-2   
 
 jobs:
   load_config:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write   
+      contents: read
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -47,11 +46,13 @@ jobs:
     needs: [load_config,build]
     name: push image to ecr
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write   
+      contents: read
     steps:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-
       - name: push to ecr repo
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
