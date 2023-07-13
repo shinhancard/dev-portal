@@ -45,9 +45,6 @@ jobs:
         run: yarn test
       - name: Build yarn dependencies
         run: yarn build:all
-      - name: Copy & build to Docker
-        run: DOCKER_BUILDKIT=1  yarn build-image --tag ${{ github.sha }}    
-
   push:
     if: ${{ always() }}
     needs: [load_config,build]
@@ -65,12 +62,12 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@main
-        
       - name: push to ecr repo
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
+          DOCKER_BUILDKIT=1  yarn build-image --tag $REGISTRY/$REPOSITORY${{ github.sha }}    
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
     
