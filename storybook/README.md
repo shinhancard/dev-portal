@@ -9,6 +9,7 @@ To run the storybook locally, call `yarn storybook` in repo root. This will show
 If you want to show stories other than the default set, you can pass one or more package paths as an argument when calling storybook, for example:
 
 ```sh
+yarn
 yarn storybook plugins/search
 ```
 
