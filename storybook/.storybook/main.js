@@ -5,14 +5,14 @@ const WebpackPluginFailBuildOnWarning = require('./webpack-plugin-fail-build-on-
  * This set of stories are the ones that we publish to backstage.io.
  */
 const BACKSTAGE_CORE_STORIES = [
-  'packages/core-components',
-  'packages/app',
-  'plugins/org',
-  'plugins/search',
-  'plugins/search-react',
-  'plugins/home',
-  'plugins/stack-overflow',
-  'plugins/catalog-react',
+  // 'packages/core-components',
+  // 'packages/app',
+  // 'plugins/org',
+  // 'plugins/search',
+  // 'plugins/search-react',
+  // 'plugins/home',
+  // 'plugins/stack-overflow',
+  // 'plugins/catalog-react',
 ];
 
 // Some configuration needs to be available directly on the exported object
