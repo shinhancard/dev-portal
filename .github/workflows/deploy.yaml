@@ -9,6 +9,7 @@ env:
   EKS_CLUSTER: SHCW-AN2-RND-EKS-1
   CONTAINER_NAME: backstage
   AWS_REGION : ap-northeast-2   
+  IMAGE_TAG: ${{ github.sha }}
   
 permissions:
   id-token: write   
@@ -30,7 +31,12 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-
+      - name: eks credential test
+        run: aws eks update-kubeconfig --region ap-northeast-2 --name SHCW-AN2-RND-EKS-1
+      
+      - name: eks credential test
+        run: kubectl get svc
+        
   build_push:
     if: ${{ always() }}
     needs: [load_config]
@@ -68,7 +74,6 @@ jobs:
       - name: push to ecr repo
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: ${{ github.sha }}
         run: |
           docker tag docker.io/library/backstage:$IMAGE_TAG $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
