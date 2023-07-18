@@ -3,7 +3,11 @@ on:
     push:
       branches:
         - main
-        - 'feature/**'
+
+    workflow_run:
+        workflows: [Build & Push Image to ECR]
+        types:
+          - completed
 env:
   ECR_REPOSITORY: swa-ecr 
   EKS_CLUSTER: SHCW-AN2-RND-EKS-1
@@ -12,19 +16,20 @@ env:
   IMAGE_TAG: ${{ github.sha }}
   
 permissions:
-  id-token: write   
+  id-token: write
   contents: read
 
 jobs:
   deploy:
     name: deploy image to eks
-    runs-on: main
+    runs-on: ubuntu-latest
     steps:
       - name: eks credential test
         run: aws eks update-kubeconfig --region ap-northeast-2 --name SHCW-AN2-RND-EKS-1
 
       - name: kubectl test
         run: kubectl get svc
+
       - name: EKS Service
         uses: koslibpro/helm-eks-action@master
         env: 
