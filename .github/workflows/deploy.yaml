@@ -1,4 +1,4 @@
-name: Build & Push Image to ECR
+name: Deploy to EKS
 on:
     push:
       branches:
