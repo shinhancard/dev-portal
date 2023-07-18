@@ -33,9 +33,13 @@ jobs:
             role-session-name: SANDBOX-PUB-IAMR-GITHUB
             aws-region: ${{ env.AWS_REGION }}
       - run: aws sts get-caller-identity
+
       - name: eks credential test
         run: aws eks update-kubeconfig --region ap-northeast-2 --name SHCW-AN2-RND-EKS-1
 
+      - name: eks cluster list
+        run: aws eks list-clusters
+        
       - name: kubectl test
         run: kubectl get svc
 
