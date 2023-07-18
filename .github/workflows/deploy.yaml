@@ -1,13 +1,14 @@
 name: Deploy to EKS
 on:
-    push:
-      branches:
-        - main
-
     workflow_run:
         workflows: [Build & Push Image to ECR]
         types:
           - completed
+
+    push:
+      branches:
+        - main
+
 env:
   ECR_REPOSITORY: swa-ecr 
   EKS_CLUSTER: SHCW-AN2-RND-EKS-1
