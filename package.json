@@ -1,9 +1,10 @@
 {
-  "name": "root",
+  "name": "project-backstage",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "yarn@3.2.3",
   "engines": {
-    "node": "16 || 18"
+    "node": "18"
   },
   "scripts": {
     "dev": "concurrently \"turbo run start --parallel\" \"cd ./storybook && yarn run start\"",
