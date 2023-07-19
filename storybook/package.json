@@ -7,6 +7,12 @@
     "start": "start-storybook -p 6006",
     "build-storybook": "build-storybook --output-dir dist"
   },
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "plugins/*"
+    ]
+  },
   "dependencies": {
     "@swc/core": "^1.3.46",
     "react": "^17.0.2",
@@ -15,9 +21,12 @@
     "swc-loader": "^0.2.3"
   },
   "devDependencies": {
+    "@storybook/addon-styling": "^1.3.4",
     "@storybook/addon-a11y": "^6.5.9",
     "@storybook/addon-actions": "^6.5.9",
     "@storybook/addon-controls": "^6.5.9",
+    "@storybook/addon-highlight": "^7.0.27",
+    "@storybook/addon-interactions": "^7.0.27",
     "@storybook/addon-links": "^6.5.9",
     "@storybook/addon-storysource": "^6.5.9",
     "@storybook/addons": "^6.5.9",

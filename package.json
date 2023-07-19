@@ -6,7 +6,7 @@
     "node": "16 || 18"
   },
   "scripts": {
-    "dev": "turbo run start --parallel",
+    "dev": "concurrently \"turbo run start --parallel\" \"cd ./storybook && yarn run start\"",
     "start": "yarn workspace app start",
     "start-backend": "yarn workspace backend start",
     "build:backend": "yarn workspace backend build",
@@ -21,8 +21,7 @@
     "lint:all": "backstage-cli repo lint",
     "prettier:check": "prettier --check .",
     "new": "backstage-cli new --scope internal",
-    "build-storybook": "yarn ./storybook run build-storybook",
-    "storybook": "yarn ./storybook run start"
+    "build-storybook": "yarn ./storybook run build-storybook"
   },
   "workspaces": {
     "packages": [
