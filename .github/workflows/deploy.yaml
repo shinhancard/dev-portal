@@ -41,7 +41,7 @@ jobs:
         run: aws eks list-clusters
         
       - name: kubectl test
-        run: kubectl get svc
+        run: kubectl get svc --v=9
 
       - name: EKS Service
         uses: koslibpro/helm-eks-action@master
