@@ -35,7 +35,7 @@ jobs:
       - run: aws sts get-caller-identity
 
       - name: eks cluster firewall
-        run: aws eks describe-cluster --name SHCW-AN2-RND-EKS-1 --region ap-northeast-2 --qeury cluster.resourcesVpcConfig
+        run: aws eks describe-cluster --name SHCW-AN2-RND-EKS-1 --region ap-northeast-2 --query cluster.resourcesVpcConfig
      
       - name: eks credential test
         run: aws eks update-kubeconfig --region ap-northeast-2 --name SHCW-AN2-RND-EKS-1
