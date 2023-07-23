@@ -84,12 +84,6 @@ catalog:
 
     # Local example template
     - type: file
-      target: ../../examples/template/template.yaml
-      rules:
-        - allow: [Template]
-
-    # Local example template
-    - type: file
       target: ../../examples/template/template2.yaml
       rules:
         - allow: [ Template ]
