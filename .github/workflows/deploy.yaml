@@ -46,9 +46,9 @@ jobs:
       - name: kubectl test
         run: kubectl get svc --v=9
 
-      - name: EKS Service
-        uses: koslibpro/helm-eks-action@master
-        env: 
-          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
-        with:
-          command: kubectl apply -f kubernetes/backstage.yaml
+      # - name: EKS Service
+      #   uses: koslibpro/helm-eks-action@master
+      #   env: 
+      #     KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+      #   with:
+      #     command: kubectl apply -f kubernetes/backstage.yaml
