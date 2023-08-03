@@ -42,7 +42,7 @@ jobs:
       - uses: docker/setup-buildx-action@v2
       - name: set current date as env variable
         run: echo "NOW=$(date +%s)" >> $GITHUB_ENV
-             echo main-${{ github.sha }}-${{ env.NOW }}
+        
       - name: install dependency packages 
         run: yarn install
         
