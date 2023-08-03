@@ -9,7 +9,7 @@ env:
   EKS_CLUSTER: SHCW-AN2-RND-EKS-1
   CONTAINER_NAME: backstage
   AWS_REGION : ap-northeast-2   
-  IMAGE_TAG: ${{ github.sha }}
+  IMAGE_TAG: ${GIT_BRANCH}-${GIT_SHA:0:7}-$(date +%s)
   
 permissions:
   id-token: write   
