@@ -9,7 +9,7 @@ env:
   EKS_CLUSTER: SHCW-AN2-RND-EKS-1
   CONTAINER_NAME: backstage
   AWS_REGION : ap-northeast-2   
-  IMAGE_TAG: ${{ github.ref }}-${{ github.sha }}-${{ github.event.repository.updated_at}}
+  IMAGE_TAG: main-${{ github.sha }}-${{ github.event.repository.updated_at}}
   
 permissions:
   id-token: write   
@@ -19,6 +19,7 @@ jobs:
   load_config:
     runs-on: ubuntu-latest
     steps:
+      - run: echo $IMAGE_TAG
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
