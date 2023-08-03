@@ -9,7 +9,7 @@ env:
   EKS_CLUSTER: SHCW-AN2-RND-EKS-1
   CONTAINER_NAME: backstage
   AWS_REGION : ap-northeast-2   
-  IMAGE_TAG: main-${{ github.sha }}-${{ github.event.repository.updated_at}}
+  IMAGE_TAG: main-${{ github.sha }}-${{ github.event.repository.updated_at.lowercase }}
   
 permissions:
   id-token: write   
@@ -53,7 +53,7 @@ jobs:
         run: yarn build:all
         
       - name: Copy & Build to docker 
-        run: DOCKER_BUILDKIT=1 yarn build-image --tag backstage:$IMAGE_TAG
+        run: DOCKER_BUILDKIT=1 yarn build-image --tag $IMAGE_TAG
         
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
