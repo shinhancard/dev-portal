@@ -39,8 +39,7 @@ jobs:
     needs: [load_config]
     name: push image to ecr
     runs-on: ubuntu-latest
-    env: 
-      IMAGE_TAG: main-${{ github.sha }}-$NOW
+
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -72,6 +71,7 @@ jobs:
       - name: push to ecr repo
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: main-${{ github.sha }}-${{ env.NOW }}
         run: |
           echo $REGISTRY
           docker tag docker.io/library/backstage:$IMAGE_TAG $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
