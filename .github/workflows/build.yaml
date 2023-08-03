@@ -42,7 +42,7 @@ jobs:
       - uses: docker/setup-buildx-action@v2
       - name: set current date as env variable
         run: echo "NOW=$(date +%s)" >> $GITHUB_ENV
-        
+
       - name: install dependency packages 
         run: yarn install
         
@@ -54,8 +54,8 @@ jobs:
         
       - name: Copy & Build to docker 
         env: 
-          IMAGE_TAG: main-${{ github.sha }}-${{ env.NOW }}
-        run: DOCKER_BUILDKIT=1 yarn build-image --tag $IMAGE_TAG
+          IMAGE_TAG: ${{ github.sha }} 
+        run: DOCKER_BUILDKIT=1 yarn build-image --tag $IMAGE_TAG 
         
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -70,10 +70,11 @@ jobs:
         
       - name: push to ecr repo
         env:
+          GITHUB_SHA: ${{github.sha}}
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: main-${{ github.sha }}-${{ env.NOW }}
         run: |
           echo $REGISTRY
-          docker tag docker.io/library/backstage:$IMAGE_TAG $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker tag docker.io/library/backstage:$GITHUB_SHA $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$ECR_REPOSITORY:backstage_$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
