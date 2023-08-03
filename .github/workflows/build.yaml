@@ -9,7 +9,7 @@ env:
   EKS_CLUSTER: SHCW-AN2-RND-EKS-1
   CONTAINER_NAME: backstage
   AWS_REGION : ap-northeast-2   
-  IMAGE_TAG: ${GIT_BRANCH}-${GIT_SHA:0:7}-$(date +%s)
+  IMAGE_TAG: ${GITHUB_BRANCH}-${GITHUB_SHA:0:7}-$(date +%s)
   
 permissions:
   id-token: write   
@@ -70,6 +70,6 @@ jobs:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
           echo $REGISTRY
-          docker tag docker.io/library/backstage:$IMAGE_TAG $REGISTRY/$ECR_REPOSITORY:backstage_$IMAGE_TAG
+          docker tag docker.io/library/backstage:$IMAGE_TAG $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$ECR_REPOSITORY:backstage_$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
