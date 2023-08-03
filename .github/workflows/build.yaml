@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: set current date as env variable
         run: echo "NOW=$(date +%s)" >> $GITHUB_ENV
-      - run: echo main-${{ github.sha }}-${{ env.NOW }}
+      - run: echo main-${{ github.sha }}-$NOW
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -40,7 +40,7 @@ jobs:
     name: push image to ecr
     runs-on: ubuntu-latest
     env: 
-      IMAGE_TAG: main-${{ github.sha }}-${{ env.NOW }}
+      IMAGE_TAG: main-${{ github.sha }}-$NOW
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
