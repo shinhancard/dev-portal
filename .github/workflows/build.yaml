@@ -8,8 +8,7 @@ env:
   ECR_REPOSITORY: swa-ecr 
   EKS_CLUSTER: SHCW-AN2-RND-EKS-1
   CONTAINER_NAME: backstage
-  AWS_REGION : ap-northeast-2   
-  IMAGE_TAG: main-${{ github.sha }}-$(date +%s)
+  AWS_REGION : ap-northeast-2 
   
 permissions:
   id-token: write   
@@ -21,7 +20,7 @@ jobs:
     steps:
       - name: set current date as env variable
         run: echo "NOW=$(date +%s)" >> $GITHUB_ENV
-      - run: echo $IMAGE_TAG
+      - run: echo main-${{ github.sha }}-${{ env.NOW }}
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -41,7 +40,7 @@ jobs:
     name: push image to ecr
     runs-on: ubuntu-latest
     env: 
-      IMAGE_TAG: main-${{ github.sha }}-$NOW
+      IMAGE_TAG: main-${{ github.sha }}-${{ env.NOW }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
