@@ -76,5 +76,4 @@ jobs:
         run: |
           echo $REGISTRY
           docker tag docker.io/library/$GITHUB_SHA $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          docker push $REGISTRY/$ECR_REPOSITORY:backstage_$IMAGE_TAG
-          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+          docker push $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
