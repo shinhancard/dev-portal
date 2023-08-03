@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: set current date as env variable
         run: echo "NOW=$(date +%s)" >> $GITHUB_ENV
-      - run: echo main-${{ github.sha }}-$NOW
+      - run: echo main-${{ github.sha }}-${{ env.NOW }}
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
