@@ -50,7 +50,7 @@ jobs:
         run: yarn test
         
       - name: Build yarn dependencies
-        run: yarn build:all --config app-config-production.yaml
+        run: yarn build:all 
         
       - name: Copy & Build to docker 
         env: 
