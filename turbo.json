@@ -1,0 +1,81 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "pipeline": {
+      "start": {
+        "cache": false
+      },
+      "lint": {
+        "outputs": []
+      },
+      "test": {
+        "outputs": [],
+        "inputs": [
+          "**/tests/*.ts",
+          "**/tests/*.js",
+          "**/*.spec.ts",
+          "**/*.spec.js",
+          "**/*.test.ts",
+          "**/*.test.js"
+        ]
+      },
+      "test:unit": {
+        "outputs": [],
+        "inputs": [
+          "**/tests/*.ts",
+          "**/tests/*.js",
+          "**/*.spec.ts",
+          "**/*.spec.js",
+          "**/*.test.ts",
+          "**/*.test.js"
+        ]
+      },
+      "test:e2e": {
+        "cache": false,
+        "outputs": []
+      },
+      "test:coverage": {
+        "outputs": [],
+        "inputs": [
+          "**/test/*.ts",
+          "**/test/*.js",
+          "**/*.spec.ts",
+          "**/*.spec.js",
+          "**/*.test.ts",
+          "**/*.test.js"
+        ]
+      },
+      "build": {
+        "dependsOn": [
+          "^build"
+        ],
+        "outputs": [
+          "dist/**"
+        ]
+      },
+      "prod": {
+        "cache": true
+      },
+      "task": {
+        "outputs": []
+      },
+      "docker:build": {
+        "cache": true,
+        "outputs": []
+      },
+      "docker:run": {
+        "outputs": []
+      },
+      "deploy": {
+        "dependsOn": [
+          "build",
+          "test",
+          "lint"
+        ],
+        "outputs": []
+      }
+    },
+    "globalDependencies": [
+      ".env",
+      "tsconfig.json"
+    ]
+}
