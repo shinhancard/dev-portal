@@ -41,6 +41,19 @@ spec:
           ui:options:
             allowedKinds:
               - Group
+    - title: Choose create-file
+      required:
+        - filename
+        - contents
+      properties:
+        filename:
+          title: File Name
+          type: string
+          description: name of file
+        contents:
+          title: file contents
+          type: string
+          description: content
     - title: Choose a location
       required:
         - repoUrl
@@ -69,7 +82,15 @@ spec:
           owner: ${{ parameters.owner }}
           destination: ${{ parameters.repoUrl | parseRepoUrl }}
           http_port: 8080
-
+    - id: temp
+      name: create gradle file
+      action: builtin:create:file
+      input:
+        url: ./skeleton
+        copyWithoutRender:
+          - .github/workflows/*
+        filename: ${{ parameters.filename }}
+        contents: ${{ parameters.contents }}
     - id: publish
       name: Publish
       action: publish:github
@@ -77,7 +98,6 @@ spec:
         allowedHosts: ["github.com"]
         description: This is ${{ parameters.component_id }}
         repoUrl: ${{ parameters.repoUrl }}
-
     - id: register
       name: Register
       action: catalog:register
