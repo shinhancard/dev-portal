@@ -23,8 +23,8 @@ backend:
     #connection: ':memory:'
     client: pg
     connection:
-      host: ${POSTGRES_SERVICE_HOST}
-      port: ${POSTGRES_SERVICE_PORT}
+      host: ${BACKSTAGE_POSTGRESQL_SERVICE_HOST}
+      port: ${BACKSTAGE_POSTGRESQL_SERVICE_PORT}
       user: ${POSTGRES_USER}
       password: ${POSTGRES_PASSWORD}
       # https://node-postgres.com/features/ssl
