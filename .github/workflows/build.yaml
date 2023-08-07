@@ -48,6 +48,9 @@ jobs:
         
       - name: Test unit
         run: yarn test
+      
+      - name: load dist before build
+        run: yarn build:all 
         
       - name: Build yarn dependencies
         run: yarn build:all 
