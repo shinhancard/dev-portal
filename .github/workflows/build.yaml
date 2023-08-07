@@ -50,7 +50,7 @@ jobs:
         run: yarn test
       
       - name: load dist before build
-        run: yarn build:all 
+        run: yarn tsc
         
       - name: Build yarn dependencies
         run: yarn build:all 
