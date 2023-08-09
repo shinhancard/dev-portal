@@ -11,13 +11,18 @@
 
 FROM node:18-bullseye-slim
 
+# postgresql로 의존성 변경
 # Install sqlite3 dependencies. You can skip this if you don't use sqlite3 in the image,
 # in which case you should also move better-sqlite3 to "devDependencies" in package.json.
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-    --mount=type=cache,target=/var/lib/apt,sharing=locked \
-    apt-get update && \
-    apt-get install -y --no-install-recommends libsqlite3-dev python3 build-essential && \
-    yarn config set python /usr/bin/python3
+#RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+#    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+#    apt-get update && \
+#    apt-get install -y --no-install-recommends libsqlite3-dev python3 build-essential && \
+#    yarn config set python /usr/bin/python3
+
+# techdoc local mode를 위하여 mkdocs 설치
+RUN apt-get update && apt-get install -y python3 python3-pip
+RUN pip3 install mkdocs-techdocs-core==1.1.7
 
 # From here on we use the least-privileged `node` user to run the backend.
 USER node

@@ -1,11 +1,15 @@
 #모노레포 구성완료
-
+```shell
 yarn install
+
+#python 설치 필요
+#techdocs local 실행을 위한 준비
+pip install mkdocs mkdocs-techdocs-core
 
 cd ./storybook && yarn install
 
 yarn dev
-
+```
 
 ## software catalog 사용
 
