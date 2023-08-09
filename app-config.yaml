@@ -63,7 +63,11 @@ techdocs:
 
 auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
-  providers: {}
+  providers: 
+    github:
+      development:
+        clientId: ${AUTH_GITHUB_CLIENT_ID}
+        clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
 
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
@@ -79,9 +83,13 @@ catalog:
     - type: file
       target: ../../examples/entities.yaml
 
-    # Local example template
+    # Local example templates
     - type: file
-      target: ../../examples/template/template.yaml
+      target: ../../templates/examples/react-ssr-template/template.yaml
+      rules:
+        - allow: [Template]
+    - type: file
+      target: ../../templates/examples/springboot-grpc-template/template.yaml
       rules:
         - allow: [Template]
 
@@ -89,7 +97,6 @@ catalog:
     - type: file
       target: ../../examples/org.yaml
       rules:
-        - allow: [User, Group]
 
     ## Uncomment these lines to add more example data
     # - type: url
