@@ -4,6 +4,8 @@
 
 ${{ values.description }}
 
+team : ${{ values.team }}
+
 ## Develop
 
 ```bash
