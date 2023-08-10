@@ -33,6 +33,7 @@ import gitlab from './plugins/gitlab';
 import { PluginEnvironment } from './types';
 import { ServerPermissionClient } from '@backstage/plugin-permission-node';
 import { DefaultIdentityClient } from '@backstage/plugin-auth-node';
+import formData from './plugins/formData';
 
 function makeCreateEnv(config: Config) {
   const root = getRootLogger();
@@ -89,6 +90,7 @@ async function main() {
   const searchEnv = useHotMemoize(module, () => createEnv('search'));
   const appEnv = useHotMemoize(module, () => createEnv('app'));
   const gitlabEnv = useHotMemoize(module, () => createEnv('gitlab'));
+  const formDataEnv = useHotMemoize(module, () => createEnv('form-data')); // for custom dynamic form
 
   const apiRouter = Router();
   apiRouter.use('/catalog', await catalog(catalogEnv));
@@ -98,6 +100,9 @@ async function main() {
   apiRouter.use('/proxy', await proxy(proxyEnv));
   apiRouter.use('/search', await search(searchEnv));
   apiRouter.use('/gitlab', await gitlab(gitlabEnv));
+  apiRouter.use('/form-data', await formData(formDataEnv)); // for custom dynamic form
+
+
   // Add backends ABOVE this line; this 404 handler is the catch-all fallback
   apiRouter.use(notFoundHandler());
 

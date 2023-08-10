@@ -34,6 +34,13 @@ spec:
           ui:options:
             allowedKinds:
               - Group
+        team:
+          title: Team
+          type: string
+          ui:field: DynamicPickExtension
+          ui:options:
+            form_data: shcard/teams
+            # external_data: https://dummyjson.com/products/categories # 외부 API 직접 연결 가능
     - title: Choose a location
       required:
         - repoUrl
@@ -58,6 +65,7 @@ spec:
           description: ${{ parameters.description }}
           destination: ${{ parameters.repoUrl | parseRepoUrl }}
           owner: ${{ parameters.owner }}
+          team: ${{ parameters.team }}
 
     - id: publish
       name: Publish
