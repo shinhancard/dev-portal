@@ -79,9 +79,13 @@ catalog:
     - type: file
       target: ../../examples/entities.yaml
 
-    # Local example template
-    - type: file
-      target: ../../examples/template/template.yaml
+    # url template
+    - type: url
+      target: https://github.com/shinhancard/dev-portal-catalog-template/blob/main/springboot-template/template.yaml
+      rules:
+        - allow: [Template]
+    - type: url
+      target: https://github.com/shinhancard/dev-portal-catalog-template/blob/main/react-template/template.yaml
       rules:
         - allow: [Template]
 
