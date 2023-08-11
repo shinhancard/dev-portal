@@ -51,4 +51,4 @@ site
 *.session.sql
 
 # templates 별도 관리
-templates
+dev-portal-catalog-template

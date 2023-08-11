@@ -88,11 +88,11 @@ catalog:
 
     # Local example templates
     - type: file
-      target: ../../templates/react-template/template.yaml
+      target: ../../dev-portal-catalog-template/react-template/template.yaml
       rules:
         - allow: [Template]
     - type: file
-      target: ../../templates/springboot-template/template.yaml
+      target: ../../dev-portal-catalog-template/springboot-template/template.yaml
       rules:
         - allow: [Template]
 
