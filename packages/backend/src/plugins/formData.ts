@@ -1,7 +1,7 @@
 import { createRouter } from '@premise/plugin-form-data-backend';
 import { Router } from 'express';
 import { PluginEnvironment } from '../types';
-import { shcardTeamRouter } from '../providers/shcardTeamRouter';
+import { exampleRouter } from '../providers/exampleRouter';
 
 export default async function createPlugin(
     env: PluginEnvironment,
@@ -12,8 +12,8 @@ export default async function createPlugin(
         },
         [
             {
-                path: '/shcard',
-                router: shcardTeamRouter,
+                path: '/example',
+                router: exampleRouter,
             }
         ],
     );
