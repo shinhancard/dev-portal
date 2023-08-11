@@ -81,11 +81,11 @@ catalog:
 
     # Local example templates
     - type: file
-      target: ../../templates/examples/react-ssr-template/template.yaml
+      target: ../../templates/react-template/template.yaml
       rules:
         - allow: [Template]
     - type: file
-      target: ../../templates/examples/springboot-grpc-template/template.yaml
+      target: ../../templates/springboot-template/template.yaml
       rules:
         - allow: [Template]
 
