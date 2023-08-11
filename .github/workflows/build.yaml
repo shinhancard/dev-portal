@@ -44,6 +44,13 @@ jobs:
       - name: set current date as env variable
         run: echo "NOW=$(date +%s)" >> $GITHUB_ENV
 
+      - name: Cache npm packages
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: yarn-lock.json
+
       - name: install dependency packages 
         run: yarn install
         
@@ -54,8 +61,7 @@ jobs:
         run: yarn tsc
         
       - name: Build yarn dependencies
-        run: yarn build:all 
-        
+        run: yarn build:all
       - name: Copy & Build to docker 
         env: 
           IMAGE_TAG: ${{ github.sha }} 
