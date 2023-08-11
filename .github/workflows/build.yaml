@@ -3,6 +3,7 @@ on:
     push:
       branches:
         - main
+        - feature/38_techdoc_add
         
 env:
   ECR_REPOSITORY: swa-ecr 
