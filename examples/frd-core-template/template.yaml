@@ -41,19 +41,30 @@ spec:
           ui:options:
             allowedKinds:
               - Group
-    - title: Choose create-file
+
+    - title: Choose Dependencies
       required:
-        - filename
-        - contents
+        - dependencies
       properties:
-        filename:
-          title: File Name
-          type: string
-          description: name of file
-        contents:
-          title: file contents
-          type: string
-          description: content
+        dependencies:
+          type: array
+          title: dependency
+          items:
+            type: object
+            properties:
+              type:
+                title: type
+                type: string
+                description: ex) implementation, runtimeOnly, testImplementation
+              dependency-name:
+                title: dependency-name
+                type: string
+                description: ex) org.springframework.boot:spring-boot-starter-cache
+              version:
+                title: version
+                type: string
+                description: version
+
     - title: Choose a location
       required:
         - repoUrl
@@ -82,15 +93,14 @@ spec:
           owner: ${{ parameters.owner }}
           destination: ${{ parameters.repoUrl | parseRepoUrl }}
           http_port: 8080
-    - id: temp
+    - id: create
       name: create gradle file
-      action: builtin:create:file
+      action: create:dependency:gradle
       input:
         url: ./skeleton
         copyWithoutRender:
           - .github/workflows/*
-        filename: ${{ parameters.filename }}
-        contents: ${{ parameters.contents }}
+        dependencies: ${{ parameters.dependencies }}
     - id: publish
       name: Publish
       action: publish:github

@@ -1,8 +1,8 @@
 import { PassThrough } from 'stream';
-import { createAcmeExampleAction } from './example';
+import { createAcmeExampleAction } from './dependency';
 import { getVoidLogger } from '@backstage/backend-common';
 
-describe('acme:example', () => {
+describe('acme:create-file', () => {
   afterEach(() => {
     jest.resetAllMocks();
   });
@@ -28,7 +28,7 @@ describe('acme:example', () => {
     });
 
     expect(logger.info).toHaveBeenCalledWith(
-      'Running example template with parameters: test',
+      'Running create-file template with parameters: test',
     );
   });
 });

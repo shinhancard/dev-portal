@@ -1,5 +1,6 @@
 import { createTemplateAction } from '@backstage/plugin-scaffolder-node';
 import { writeFile } from 'fs';
+import {createGradle} from "./gradle";
 
 export const createNewFileAction = () => {
     return createTemplateAction<{ contents: string; filename: string }>(
@@ -33,4 +34,32 @@ export const createNewFileAction = () => {
             );
         },
     });
+};
+
+export const createDependencyAction = () => {
+    return createTemplateAction<{ dependencies }>(
+        {
+            id: 'create:dependency:gradle',
+            schema: {
+                input: {
+                    required: ['dependencies'],
+                    type: 'object',
+                    properties: {
+                        dependencies: {
+                            title: 'Dependencies',
+                            type: 'array',
+                            description: 'array of dependencies'
+                        },
+                    },
+                },
+            },
+            async handler(ctx) {
+                const { signal } = ctx;
+                await writeFile(
+                    `${ctx.workspacePath}/build.gradle`,
+                    createGradle(ctx.input.dependencies),
+                    _ => {},
+                );
+            },
+        });
 };

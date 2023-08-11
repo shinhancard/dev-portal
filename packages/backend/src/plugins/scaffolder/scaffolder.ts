@@ -4,6 +4,7 @@ import { Router } from 'express';
 import type { PluginEnvironment } from '../../types';
 import { ScmIntegrations } from '@backstage/integration';
 import {createNewFileAction} from "./actions/create-file";
+import {createDependencyAction} from "./actions/create-file/dependcy";
 
 export default async function createPlugin(
   env: PluginEnvironment,
@@ -19,7 +20,7 @@ export default async function createPlugin(
     reader: env.reader,
   })
 
-  const actions = [...builtInActions, createNewFileAction()];
+  const actions = [...builtInActions, createNewFileAction(), createDependencyAction()];
 
   return await createRouter({
     catalogClient,

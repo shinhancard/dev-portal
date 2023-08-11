@@ -4,5 +4,7 @@
  *
  * @packageDocumentation
  */
-
+export {
+    setDependencyPlugin
+} from './plugin'
 export * from './actions';
