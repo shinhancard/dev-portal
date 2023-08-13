@@ -2,10 +2,6 @@
   "name": "@storybook/design-system",
   "version": "7.15.15",
   "description": "Storybook design system",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/storybookjs/design-system.git"
-  },
   "license": "MIT",
   "author": {
     "name": "Michael Shilman",
@@ -21,32 +17,7 @@
     "build-images": "yarn svgr --out-dir src/images src/images",
     "build-storybook": "yarn build-images && yarn patch-package && storybook build",
     "clean": "rm -rf dist",
-    "lint": "yarn lint:js && yarn lint:package",
-    "lint:js": "cross-env NODE_ENV=production eslint --cache --cache-location=.cache/eslint --ext .js,.jsx,.html,.ts,.tsx,.mjs --report-unused-disable-directives",
-    "lint:package": "sort-package-json",
-    "release": "dotenv yarn build & yarn typescript:generate && auto shipit",
-    "storybook": "yarn patch-package && storybook dev -p 6006",
-    "typescript:check": "tsc --project ./tsconfig.json --noEmit",
-    "typescript:generate": "tsc --declaration --emitDeclarationOnly --outDir dist --declarationMap"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.html": [
-      "yarn lint:js --fix"
-    ],
-    "*.js": [
-      "yarn lint:js --fix"
-    ],
-    "*.ts?(x)": [
-      "yarn lint:js --fix"
-    ],
-    "package.json": [
-      "yarn lint:package"
-    ]
+    "storybook": "yarn patch-package && storybook dev -p 6006"
   },
   "dependencies": {
     "@emotion/weak-memoize": "^0.3.0",
@@ -120,13 +91,5 @@
       "npm",
       "released"
     ]
-  },
-  "collective": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/storybook"
-  },
-  "storybook": {
-    "title": "Storybook Design System",
-    "url": "https://master--5ccbc373887ca40020446347.chromatic.com"
   }
 }
