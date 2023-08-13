@@ -4,11 +4,7 @@ const WebpackPluginFailBuildOnWarning = require('./webpack-plugin-fail-build-on-
 /**
  * This set of stories are the ones that we publish to backstage.io.
  */
-const BACKSTAGE_CORE_STORIES = [
-  'plugins/home',
-  'plugins/home-react',
-  'plugins/components',
-];
+const BACKSTAGE_CORE_STORIES = ['plugins/home', 'plugins/home-react'];
 
 // Some configuration needs to be available directly on the exported object
 const staticConfig = {

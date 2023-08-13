@@ -1,0 +1,32 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": false,
+    "baseUrl": ".",
+    "incremental": false,
+    "noImplicitAny": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "jsx": "react",
+    "module": "commonjs",
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "target": "es5",
+    "types": [],
+    "lib": ["es2017", "dom"]
+  },
+  "include": ["src"],
+  "exclude": [
+    "**/dist",
+    "**/test.*",
+    "node_modules",
+    "**/node_modules",
+    "**/*.spec.ts",
+    "**/__tests__",
+    "**/*.test.ts",
+    "**/*.stories.*"
+  ]
+}
