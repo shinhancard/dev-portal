@@ -115,7 +115,7 @@ techdocs:
 
     local:
       # (Optional). Set this to specify where the generated documentation is stored.
-      publishDirectory: '/path/to/local/directory'
+      publishDirectory: '/tmp'
 
     # Required when techdocs.publisher.type is set to 'awsS3'. Skip otherwise.
 
