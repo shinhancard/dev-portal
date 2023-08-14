@@ -91,13 +91,10 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Copy & Build to docker
-        env: 
-          IMAGE_TAG: ${{ github.sha }} 
-        run: DOCKER_BUILDKIT=1 yarn build-image --tag $IMAGE_TAG
-        with:
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+#      - name: Copy & Build to docker
+#        env:
+#          IMAGE_TAG: ${{ github.sha }}
+#        run: DOCKER_BUILDKIT=1 yarn build-image --tag $IMAGE_TAG
         
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -110,12 +107,27 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@main
         
+#      - name: push to ecr repo
+#        env:
+#          GITHUB_SHA: ${{github.sha}}
+#          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+#          IMAGE_TAG: main-${{ github.sha }}-${{ env.NOW }}
+#        run: |
+#          echo $REGISTRY
+#          docker tag docker.io/library/$GITHUB_SHA $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+#          docker push $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
       - name: push to ecr repo
+        uses: docker/build-push-action@v4
         env:
           GITHUB_SHA: ${{github.sha}}
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: main-${{ github.sha }}-${{ env.NOW }}
-        run: |
-          echo $REGISTRY
-          docker tag docker.io/library/$GITHUB_SHA $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          docker push $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        with:
+          context: .
+          file: ./packages/backend/Dockerfile
+          push: true
+          tags: $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
