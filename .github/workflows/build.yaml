@@ -11,7 +11,6 @@ env:
   CONTAINER_NAME: backstage
   AWS_REGION : ap-northeast-2
   CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/node_modules
-  BUILD_CACHE_KEY: ${{ github.sha }}
   
 permissions:
   id-token: write   
@@ -46,20 +45,20 @@ jobs:
         uses: actions/setup-node@v3
       - name: Compute dependency cache key
         id: compute_lockfile_hash
-        run: echo "::set-output name=hash::${{ hashFiles('**/yarn-lock.json') }}"
+        run: echo "name=hash::${{ hashFiles('**/yarn-lock.json') }}" >> $BUILD_CACHE_KEY
       - name: Check dependency cache
         uses: actions/cache@v3
         id: cache_dependencies
         with:
           path: ${{ env.CACHED_DEPENDENCY_PATHS }}
-          key: ${{ steps.compute_lockfile_hash.outputs.hash }}
+          key: ${{ env.BUILD_CACHE_KEY }}
       - name: Install dependencies
         # use '.', not '[]' with hyphenated variables
         # https://github.com/nektos/act/issues/104#issuecomment-592892249
         if: steps.cache_dependencies.outputs.cache-hit != 'true'
         run: yarn install
     outputs:
-      dependency_cache_key: ${{ steps.compute_lockfile_hash.outputs.hash }}
+      dependency_cache_key: ${{ env.BUILD_CACHE_KEY }}
 
   build_push:
     if: ${{ always() }}
