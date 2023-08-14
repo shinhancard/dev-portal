@@ -22,6 +22,8 @@ backend:
     #client: better-sqlite3
     #connection: ':memory:'
     client: pg
+    # 동일 database에 table 생성하도록(https://backstage.io/docs/tutorials/switching-sqlite-postgres)
+    pluginDivisionMode: schema # defaults to database, but changing this to schema means plugins will be given their own schema (in the specified/default database)
     connection:
       host: ${BACKSTAGE_POSTGRESQL_SERVICE_HOST}
       port: ${BACKSTAGE_POSTGRESQL_SERVICE_PORT}
@@ -57,20 +59,20 @@ techdocs:
     # into Docker in Docker situation. Read more here
     # https://backstage.io/docs/features/techdocs/getting-started#disable-docker-in-docker-situation-optional
 
-    runIn: 'docker'
+    runIn: 'local'
 
     # (Optional) techdocs.generator.dockerImage can be used to control the docker image used during documentation generation. This can be useful
     # if you want to use MkDocs plugins or other packages that are not included in the default techdocs-container (spotify/techdocs).
     # NOTE: This setting is only used when techdocs.generator.runIn is set to 'docker'.
 
-    dockerImage: 'spotify/techdocs'
+#    dockerImage: 'spotify/techdocs'
 
     # (Optional) techdocs.generator.pullImage can be used to disable pulling the latest docker image by default. This can be useful when you are
     # using a custom techdocs.generator.dockerImage and you have a custom docker login requirement. For example, you need to login to
     # AWS ECR to pull the docker image.
     # NOTE: Disabling this requires the docker image was pulled by other means before running the techdocs generator.
 
-    pullImage: true
+#    pullImage: true
 
     mkdocs:
       # (Optional)  techdocs.generator.omitTechdocsCoreMkdocsPlugin can be used to disable automatic addition of techdocs-core plugin to the mkdocs.yaml files.
