@@ -20,7 +20,7 @@ export default async function createPlugin(
     reader: env.reader,
   })
 
-  const actions = [...builtInActions, createNewFileAction(), createDependencyAction()];
+  const actions = [...builtInActions, createDependencyAction()];
 
   return await createRouter({
     catalogClient,
