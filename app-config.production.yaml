@@ -135,7 +135,7 @@ techdocs:
       # If account ID is not set and no credentials are set, environment variables or aws config file will be used to authenticate.
       # https://www.npmjs.com/package/@aws-sdk/credential-provider-node
       # https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/setting-credentials-node.html
-#      accountId: ${TECHDOCS_AWSS3_ACCOUNT_ID}
+      accountId: '602200075182'
 
       # (Optional) AWS credentials to use to write to the storage bucket.
       # This configuration section is now deprecated.
@@ -155,7 +155,7 @@ techdocs:
       # (Optional) Endpoint URI to send requests to.
       # If not set, the default endpoint is built from the configured region.
       # https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/interfaces/s3clientconfig.html#endpoint
-      endpoint: hih-rnd-backstage-u86a79id4zpnbe9n6p1uk8nkxh7crapn2a-s3alias
+#      endpoint: hih-rnd-backstage-u86a79id4zpnbe9n6p1uk8nkxh7crapn2a-s3alias
 
       # (Optional) HTTPS proxy to use for S3 Requests
       # Defaults to using no proxy
