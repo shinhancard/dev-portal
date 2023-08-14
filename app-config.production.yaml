@@ -121,7 +121,7 @@ techdocs:
 
     awsS3:
       # (Required) AWS S3 Bucket Name
-      bucketName: 'hih-rnd-backstage'
+      bucketName: 'rnd-techdocs-storage'
 
       # (Optional) Location in storage bucket to save files
       # If not set, the default location will be the root of the storage bucket
