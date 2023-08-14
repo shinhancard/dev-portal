@@ -44,12 +44,15 @@ jobs:
         uses: actions/checkout@v3
       - name: Set up Node
         uses: actions/setup-node@v3
+      - name: Compute dependency cache key
+        id: compute_lockfile_hash
+        run: echo "::set-output name=hash::${{ hashFiles('**/yarn-lock.json') }}"
       - name: Check dependency cache
         uses: actions/cache@v3
         id: cache_dependencies
         with:
           path: ${{ env.CACHED_DEPENDENCY_PATHS }}
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn-lock.json') }}
+          key: ${{ steps.compute_lockfile_hash.outputs.hash }}
       - name: Install dependencies
         # use '.', not '[]' with hyphenated variables
         # https://github.com/nektos/act/issues/104#issuecomment-592892249
