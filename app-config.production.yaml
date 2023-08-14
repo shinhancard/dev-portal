@@ -155,7 +155,7 @@ techdocs:
       # (Optional) Endpoint URI to send requests to.
       # If not set, the default endpoint is built from the configured region.
       # https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/interfaces/s3clientconfig.html#endpoint
-      endpoint: s3://arn:aws:s3:ap-northeast-2:602200075182:accesspoint/hih-rnd-backstage
+      endpoint: hih-rnd-backstage-u86a79id4zpnbe9n6p1uk8nkxh7crapn2a-s3alias
 
       # (Optional) HTTPS proxy to use for S3 Requests
       # Defaults to using no proxy
