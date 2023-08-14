@@ -95,7 +95,6 @@ jobs:
 #        env:
 #          IMAGE_TAG: ${{ github.sha }}
 #        run: DOCKER_BUILDKIT=1 yarn build-image --tag $IMAGE_TAG
-        
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -127,7 +126,7 @@ jobs:
           context: .
           file: ./packages/backend/Dockerfile
           push: true
-          tags: $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          tags: ${{ env.$REGISTRY }}/${{ env.$ECR_REPOSITORY }}:${{ env.$IMAGE_TAG }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
