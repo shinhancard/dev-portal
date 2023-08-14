@@ -146,6 +146,8 @@ techdocs:
 #      credentials:
 #        accessKeyId: ${TECHDOCS_AWSS3_ACCESS_KEY_ID_CREDENTIAL}
 #        secretAccessKey: ${TECHDOCS_AWSS3_SECRET_ACCESS_KEY_CREDENTIAL}
+#      credentials:
+#        roleArn: arn:aws:iam::602200075182:role/backstage-s3
 
       # (Optional) AWS Region of the bucket.
       # If not set, AWS_REGION environment variable or aws config file will be used.
@@ -155,7 +157,7 @@ techdocs:
       # (Optional) Endpoint URI to send requests to.
       # If not set, the default endpoint is built from the configured region.
       # https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/interfaces/s3clientconfig.html#endpoint
-      endpoint: vpce-015c3ad975adfdfc1-l6srn741.s3.ap-northeast-2.vpce.amazonaws.com
+      endpoint: https://vpce-015c3ad975adfdfc1-l6srn741.s3.ap-northeast-2.vpce.amazonaws.com
 
       # (Optional) HTTPS proxy to use for S3 Requests
       # Defaults to using no proxy
