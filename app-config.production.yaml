@@ -121,11 +121,11 @@ techdocs:
 
     awsS3:
       # (Required) AWS S3 Bucket Name
-      bucketName: 'rnd-techdocs-storage'
+      bucketName: 'backstage-test11'
 
       # (Optional) Location in storage bucket to save files
       # If not set, the default location will be the root of the storage bucket
-      bucketRootPath: '/backstage'
+      bucketRootPath: '/'
 
       # (Optional) The AWS account ID where the storage bucket is located.
       # Credentials for the account ID must be configured in the 'aws' app config section.
