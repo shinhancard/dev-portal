@@ -143,11 +143,10 @@ techdocs:
       # If credentials are not set and no account ID is set, environment variables or aws config file will be used to authenticate.
       # https://www.npmjs.com/package/@aws-sdk/credential-provider-node
       # https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/setting-credentials-node.html
-#      credentials:
+      credentials:
 #        accessKeyId: ${TECHDOCS_AWSS3_ACCESS_KEY_ID_CREDENTIAL}
 #        secretAccessKey: ${TECHDOCS_AWSS3_SECRET_ACCESS_KEY_CREDENTIAL}
-#      credentials:
-#        roleArn: arn:aws:iam::602200075182:role/backstage-s3
+        roleArn: arn:aws:iam::602200075182:role/backstage-s3
 
       # (Optional) AWS Region of the bucket.
       # If not set, AWS_REGION environment variable or aws config file will be used.
