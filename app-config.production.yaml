@@ -121,7 +121,7 @@ techdocs:
 
     awsS3:
       # (Required) AWS S3 Bucket Name
-      bucketName: 'backstage-test11'
+      bucketName: 'rnd-techdocs-storage'
 
       # (Optional) Location in storage bucket to save files
       # If not set, the default location will be the root of the storage bucket
@@ -157,7 +157,7 @@ techdocs:
       # (Optional) Endpoint URI to send requests to.
       # If not set, the default endpoint is built from the configured region.
       # https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/interfaces/s3clientconfig.html#endpoint
-      endpoint: https://vpce-015c3ad975adfdfc1-l6srn741.s3.ap-northeast-2.vpce.amazonaws.com
+      endpoint: https://rnd-techdocs-storage.vpce-015c3ad975adfdfc1-l6srn741.s3.ap-northeast-2.vpce.amazonaws.com
 
       # (Optional) HTTPS proxy to use for S3 Requests
       # Defaults to using no proxy
