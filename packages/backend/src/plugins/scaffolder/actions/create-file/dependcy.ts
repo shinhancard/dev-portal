@@ -76,7 +76,6 @@ export const createDependencyAction = () => {
     },
     async handler(ctx) {
       const { signal } = ctx;
-      console.log(ctx.input.dependencies);
       await writeFile(
         `${ctx.workspacePath}/build.gradle`,
         createGradle(ctx.input.dependencies),
