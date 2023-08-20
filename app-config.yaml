@@ -2,6 +2,19 @@ app:
   title: Scaffolded Backstage App
   baseUrl: http://localhost:3000
 
+auth:
+  environment: development
+  providers:
+    github:
+      development:
+        clientId: 
+        clientSecret: 
+    google:
+      development:
+        clientId: 
+        clientSecret: 
+
+
 organization:
   name: ShinhanCard
 
@@ -10,7 +23,7 @@ backend:
   # See https://backstage.io/docs/auth/service-to-service-auth for
   # information on the format
   # auth:
-  #   keys:
+  #   keys: 
   #     - secret: ${BACKEND_SECRET}
   baseUrl: http://localhost:7007
   listen:
@@ -24,7 +37,7 @@ backend:
   cors:
     origin: http://localhost:3000
     methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
-    credentials: true
+    #credentials: trued
   # This is for local development only, it is not recommended to use this in production
   # The production database configuration is stored in app-config.production.yaml
   database:
@@ -60,10 +73,6 @@ techdocs:
     runIn: 'docker' # Alternatives - 'local'
   publisher:
     type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
-
-auth:
-  # see https://backstage.io/docs/auth/ to learn about auth providers
-  providers: {}
 
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options

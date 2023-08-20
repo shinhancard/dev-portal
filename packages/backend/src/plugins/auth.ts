@@ -17,7 +17,11 @@ export default async function createPlugin(
     tokenManager: env.tokenManager,
     providerFactories: {
       ...defaultAuthProviderFactories,
-
+      google: providers.google.create({
+        signIn: {
+          resolver: providers.google.resolvers.emailLocalPartMatchingUserEntityName(),
+        },
+      }),
       // This replaces the default GitHub auth provider with a customized one.
       // The `signIn` option enables sign-in for this provider, using the
       // identity resolution logic that's provided in the `resolver` callback.
