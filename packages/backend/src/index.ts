@@ -91,8 +91,6 @@ async function main() {
   const appEnv = useHotMemoize(module, () => createEnv('app'));
   const gitlabEnv = useHotMemoize(module, () => createEnv('gitlab'));
   const formDataEnv = useHotMemoize(module, () => createEnv('form-data')); // for custom dynamic form
-  const gitlabEnv = useHotMemoize(module, () => createEnv('gitlab'));
-  const formDataEnv = useHotMemoize(module, () => createEnv('form-data')); // for custom dynamic form
 
   const apiRouter = Router();
   apiRouter.use('/catalog', await catalog(catalogEnv));
