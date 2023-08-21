@@ -25,7 +25,7 @@ import healthcheck from './plugins/healthcheck';
 import app from './plugins/app';
 import auth from './plugins/auth';
 import catalog from './plugins/catalog';
-import scaffolder from './plugins/scaffolder/scaffolder';
+import scaffolder from './plugins/scaffolder';
 import proxy from './plugins/proxy';
 import techdocs from './plugins/techdocs';
 import search from './plugins/search';
