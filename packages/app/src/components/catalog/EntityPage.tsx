@@ -1,30 +1,30 @@
 import React from 'react';
 import { Button, Grid } from '@material-ui/core';
 import {
-    EntityApiDefinitionCard,
-    EntityConsumedApisCard,
-    EntityConsumingComponentsCard,
-    EntityHasApisCard,
-    EntityProvidedApisCard,
-    EntityProvidingComponentsCard,
+  EntityApiDefinitionCard,
+  EntityConsumedApisCard,
+  EntityConsumingComponentsCard,
+  EntityHasApisCard,
+  EntityProvidedApisCard,
+  EntityProvidingComponentsCard,
 } from '@backstage/plugin-api-docs';
 import {
-    EntityAboutCard,
-    EntityDependsOnComponentsCard,
-    EntityDependsOnResourcesCard,
-    EntityHasComponentsCard,
-    EntityHasResourcesCard,
-    EntityHasSubcomponentsCard,
-    EntityHasSystemsCard,
-    EntityLayout,
-    EntityLinksCard,
-    EntityOrphanWarning,
-    EntityProcessingErrorsPanel,
-    EntitySwitch,
-    hasCatalogProcessingErrors,
-    isComponentType,
-    isKind,
-    isOrphan,
+  EntityAboutCard,
+  EntityDependsOnComponentsCard,
+  EntityDependsOnResourcesCard,
+  EntityHasComponentsCard,
+  EntityHasResourcesCard,
+  EntityHasSubcomponentsCard,
+  EntityHasSystemsCard,
+  EntityLayout,
+  EntityLinksCard,
+  EntityOrphanWarning,
+  EntityProcessingErrorsPanel,
+  EntitySwitch,
+  hasCatalogProcessingErrors,
+  isComponentType,
+  isKind,
+  isOrphan,
 } from '@backstage/plugin-catalog';
 import {
   isGithubActionsAvailable,
@@ -56,7 +56,10 @@ import {
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 
-import {EntityGitlabContent, isGitlabAvailable,} from '@immobiliarelabs/backstage-plugin-gitlab';
+import {
+  EntityGitlabContent,
+  isGitlabAvailable,
+} from '@immobiliarelabs/backstage-plugin-gitlab';
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -153,14 +156,9 @@ const serviceEntityPage = (
       </Grid>
     </EntityLayout.Route>
 
-      <EntityLayout.Route
-          if={isGitlabAvailable}
-          path="/gitlab"
-          title="Gitlab"
-      >
-          <EntityGitlabContent/>
-
-      </EntityLayout.Route>
+    <EntityLayout.Route if={isGitlabAvailable} path="/gitlab" title="Gitlab">
+      <EntityGitlabContent />
+    </EntityLayout.Route>
 
     <EntityLayout.Route path="/dependencies" title="Dependencies">
       <Grid container spacing={3} alignItems="stretch">
