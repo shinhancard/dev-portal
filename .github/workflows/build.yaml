@@ -3,6 +3,7 @@ on:
     push:
       branches:
         - main
+        - feature/86_dev_portal_component_add
         
 env:
   ECR_REPOSITORY: swa-ecr 
@@ -44,7 +45,7 @@ jobs:
         uses: actions/setup-node@v3
       - name: Compute dependency cache key
         id: compute_lockfile_hash
-        run: echo "cache-name=hash::${{ hashFiles('**/yarn-lock.json') }}" >> $GITHUB_OUTPUT
+        run: echo "cache-name=hash::${{ hashFiles('**/yarn.lock') }}" >> $GITHUB_OUTPUT
       - name: Check dependency cache
         uses: actions/cache@v3
         id: cache_dependencies
