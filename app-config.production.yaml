@@ -35,6 +35,9 @@ backend:
       # ssl:
       #   ca: # if you have a CA file and want to verify it you can uncomment this section
       #     $file: <file-path>/ca/server.crt
+  gitlab:
+    - host: gitlab.com
+      token: ${GITLAB_TOKEN}
 
 integrations:
   github:
