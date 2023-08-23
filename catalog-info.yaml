@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: backstage
+  name: devportal
   description: An example of a Backstage application.
   # Example for optional annotations
   annotations:
@@ -9,5 +9,18 @@ metadata:
     backstage.io/techdocs-ref: dir:.
 spec:
   type: website
-  owner: john@example.com
+  owner: hellices@shinhan.com
   lifecycle: experimental
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: devportal
+  description: The dev portal API
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: hellices@naver.com
+  definition:
+    $text: http://localhost:7007/api/catalog/entities
