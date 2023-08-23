@@ -222,6 +222,10 @@ catalog:
       target: https://github.com/shinhancard/dev-portal-catalog-template/blob/main/react-template/template.yaml
       rules:
         - allow: [Template]
+    - type: url
+      target: https://github.com/shinhancard/dev-portal-catalog-template/blob/develop/frd-core-template/template.yaml
+      rules:
+        - allow: [ Template ]
 
     # Local example organizational data
     - type: file
