@@ -1,17 +1,17 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: devportal
+  name: dev-portal
   links:
     - url: https://swa-backstage.shrnd.link
       title: dev portal production link
       icon: dashboard
     - url: https://swa-grafana.shrnd.link
       title: fluxcd monitoring
-      icon: AccessAlarm
+      icon: alarm
     - url: https://swa-jaeger.shrnd.link
       title: tracing tool
-      icon: Search
+      icon: search
   tags:
     - typescript
     - backstage
@@ -27,5 +27,7 @@ metadata:
     backstage.io/code-coverage: enabled
 spec:
   type: website
-  owner: hellices@shinhan.com
+  owner: shinhancard
   lifecycle: experimental
+  children:
+    - dev-portal-flux-cd
