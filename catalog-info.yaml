@@ -4,13 +4,27 @@ metadata:
   name: devportal
   links:
     - url: https://swa-backstage.shrnd.link
-      title: shinhancard dev portal production link
+      title: dev portal production link
       icon: dashboard
-  description: An example of a Backstage application.
-  # Example for optional annotations
+    - url: https://swa-grafana.shrnd.link
+      title: fluxcd monitoring
+      icon: AccessAlarm
+    - url: https://swa-jaeger.shrnd.link
+      title: tracing tool
+      icon: Search
+  tags:
+    - typescript
+    - backstage
+    - shinhancard-dev-portal
+  description: 신한카드 개발자 포탈입니다. 사용자 가이드는 DOCS -> user guide를 참고하시기 바랍니다.
   annotations:
     github.com/project-slug: shinhancard/dev-portal
     backstage.io/techdocs-ref: dir:.
+    backstage.io/view-url: https://github.com/shinhancard/dev-portal/blob/main/catalog-info.yaml
+    backstage.io/edit-url: https://github.com/shinhancard/dev-portal/edit/main/catalog-info.yaml
+    backstage.io/source-location: url:https://github.com/shinhancard/dev-portal/
+    github.com/team-slug: shinhancard/dev_portal_team
+    backstage.io/code-coverage: enabled
 spec:
   type: website
   owner: hellices@shinhan.com

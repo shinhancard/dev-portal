@@ -227,7 +227,7 @@ catalog:
 #    - type: file
 #      target: ../../examples/entities.yaml
     - type: file
-      target: ../../catalog-info.yaml
+      target: catalog-info.yaml
       rules:
         - allow: [Component]
 
