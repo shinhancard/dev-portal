@@ -87,7 +87,8 @@ techdocs:
       # or README.md in case a default <docs-dir>/index.md is not provided.
       # Note that https://www.mkdocs.org/user-guide/configuration/#edit_uri behavior
       # will be broken in these scenarios.
-      legacyCopyReadmeMdToIndexMd: false
+      # docs/index.md 파일이 없으면 README.md를 index.md로 제너레이션한다.
+      legacyCopyReadmeMdToIndexMd: true
 
   # techdocs.builder can be either 'local' or 'external'.
   # Using the default build strategy, if builder is set to 'local' and you open a TechDocs page,
@@ -202,6 +203,15 @@ techdocs:
     # default value is 1000
     readTimeout: 500
 
+auth:
+  # see https://backstage.io/docs/auth/ to learn about auth providers
+  environment: production
+  providers:
+    github:
+      development:
+        clientId: ${AUTH_GITHUB_CLIENT_ID}
+        clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
+
 catalog:
   import:
     entityFilename: catalog-info.yaml
@@ -210,8 +220,12 @@ catalog:
     - allow: [Component, System, API, Resource, Location]
   locations:
     # Local example data, file locations are relative to the backend process, typically `packages/backend`
+#    - type: file
+#      target: ../../examples/entities.yaml
     - type: file
-      target: ../../examples/entities.yaml
+      target: ../../catalog-info.yaml
+      rules:
+        - allow: [Component]
 
     # url template
     - type: url
@@ -228,10 +242,10 @@ catalog:
         - allow: [ Template ]
 
     # Local example organizational data
-    - type: file
-      target: ../../examples/org.yaml
-      rules:
-        - allow: [User, Group]
+#    - type: file
+#      target: ../../examples/org.yaml
+#      rules:
+#        - allow: [User, Group]
 
     ## Uncomment these lines to add more example data
     # - type: url

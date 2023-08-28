@@ -2,25 +2,16 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: devportal
+  links:
+    - url: https://swa-backstage.shrnd.link
+      title: shinhancard dev portal production link
+      icon: dashboard
   description: An example of a Backstage application.
   # Example for optional annotations
   annotations:
-    github.com/project-slug: backstage/backstage
+    github.com/project-slug: shinhancard/dev-portal
     backstage.io/techdocs-ref: dir:.
 spec:
   type: website
   owner: hellices@shinhan.com
   lifecycle: experimental
-
----
-apiVersion: backstage.io/v1alpha1
-kind: API
-metadata:
-  name: devportal
-  description: The dev portal API
-spec:
-  type: openapi
-  lifecycle: experimental
-  owner: hellices@naver.com
-  definition:
-    $text: http://localhost:7007/api/catalog/entities

@@ -32,6 +32,10 @@ backend:
     connection: ':memory:'
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
 
+  reading:
+    allow:
+      - host: 'localhost'
+      - host: 'localhost:7007'
 integrations:
   github:
     - host: github.com
@@ -61,16 +65,20 @@ techdocs:
   builder: 'local' # Alternatives - 'external'
   generator:
     runIn: 'local' # Alternatives - 'local'
+    mkdocs:
+      legacyCopyReadmeMdToIndexMd: true
   publisher:
     type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
 
 auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
+  environment: development
   providers:
     github:
       development:
         clientId: ${AUTH_GITHUB_CLIENT_ID}
         clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
+        callbackUrl: http://localhost:7007/api/auth/github/handler/frame
 
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
@@ -83,8 +91,12 @@ catalog:
     - allow: [Component, System, API, Resource, Location]
   locations:
     # Local example data, file locations are relative to the backend process, typically `packages/backend`
+#    - type: file
+#      target: ../../examples/entities.yaml
     - type: file
-      target: ../../examples/entities.yaml
+      target: ../../catalog-info.yaml
+      rules:
+        - allow: [Component]
 
     # url template
     - type: url
@@ -103,10 +115,10 @@ catalog:
         - allow: [ Template ]
 
     # Local example organizational data
-    - type: file
-      target: ../../examples/org.yaml
-      rules:
-        - allow: [User, Group]
+#    - type: file
+#      target: ../../examples/org.yaml
+#      rules:
+#        - allow: [User, Group]
 
     ## Uncomment these lines to add more example data
     # - type: url
