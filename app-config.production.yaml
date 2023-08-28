@@ -18,6 +18,19 @@ backend:
     port: 7007
 
   # config options: https://node-postgres.com/api/client
+  auth:
+    environment: production
+    providers:
+      github:
+        development:
+          clientId: ${AUTH_GITHUB_CLIENT_ID}
+          clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
+      
+      gitlab:
+        development:
+          clientId: ${AUTH_GITLAB_CLIENT_ID}
+          clientSecret: ${AUTH_GITLAB_CLIENT_SECRET}
+
   database:
     #client: better-sqlite3
     #connection: ':memory:'
