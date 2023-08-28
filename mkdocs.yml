@@ -1,0 +1,11 @@
+site_name: 'shinhancard-dev-portal-user-guide'
+nav:
+  - Home: index.md
+  - 'User Guide':
+      - 01.catalog : user-guide.md
+      - 02.APIS : []
+      - 03.tech-docs : []
+      - 04.CI/CD : []
+      - 05.component : []
+plugins:
+  - techdocs-core
