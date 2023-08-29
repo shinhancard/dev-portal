@@ -107,7 +107,6 @@ async function main() {
 
   const apiRouter = Router();
   baseapp.use(express.json());
-  baseapp.use(apiRouter);
   apiRouter.use('/catalog', await catalog(catalogEnv));
   apiRouter.use('/scaffolder', await scaffolder(scaffolderEnv));
   apiRouter.use('/auth', await auth(authEnv));
@@ -117,13 +116,11 @@ async function main() {
   apiRouter.use('/gitlab', await gitlab(gitlabEnv));
   apiRouter.use('/form-data', await formData(formDataEnv)); // for custom dynamic form
   // Generates our full open api document
+  baseapp.use(apiRouter);
   documentBuilder.generatePathsObject(baseapp);
   const apidoc = documentBuilder.build();
   console.log(apidoc);
-  apiRouter.use(
-    '/openapispec',
-    await openapispec(openapispecEnv, apidoc),
-  );
+  apiRouter.use('/openapispec', await openapispec(openapispecEnv, apidoc));
 
   // Add backends ABOVE this line; this 404 handler is the catch-all fallback
   apiRouter.use(notFoundHandler());
