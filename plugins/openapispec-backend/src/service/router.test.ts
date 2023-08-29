@@ -10,6 +10,7 @@ describe('createRouter', () => {
   beforeAll(async () => {
     const router = await createRouter({
       logger: getVoidLogger(),
+      apidoc: undefined,
     });
     app = express().use(router);
   });
