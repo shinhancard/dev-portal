@@ -5,7 +5,7 @@
  *
  * Happy hacking!
  */
-
+import express from 'express';
 import Router from 'express-promise-router';
 import {
   createServiceBuilder,
@@ -34,7 +34,19 @@ import { PluginEnvironment } from './types';
 import { ServerPermissionClient } from '@backstage/plugin-permission-node';
 import { DefaultIdentityClient } from '@backstage/plugin-auth-node';
 import formData from './plugins/formData';
+import { DocumentBuilder } from 'express-openapi-generator';
+import openapispec from './plugins/openapispec';
 
+// This initializes and creates our document builder interface
+const documentBuilder = DocumentBuilder.initializeDocument({
+  openapi: '3.0.1',
+  info: {
+    title: 'A example document',
+    version: '1',
+  },
+  paths: {}, // You don't need to include any path objects, those will be generated later
+});
+const baseapp = express();
 function makeCreateEnv(config: Config) {
   const root = getRootLogger();
   const reader = UrlReaders.default({ logger: root, config });
@@ -91,8 +103,11 @@ async function main() {
   const appEnv = useHotMemoize(module, () => createEnv('app'));
   const gitlabEnv = useHotMemoize(module, () => createEnv('gitlab'));
   const formDataEnv = useHotMemoize(module, () => createEnv('form-data')); // for custom dynamic form
+  const openapispecEnv = useHotMemoize(module, () => createEnv('openapispec'));
 
   const apiRouter = Router();
+  baseapp.use(express.json());
+  baseapp.use(apiRouter);
   apiRouter.use('/catalog', await catalog(catalogEnv));
   apiRouter.use('/scaffolder', await scaffolder(scaffolderEnv));
   apiRouter.use('/auth', await auth(authEnv));
@@ -101,7 +116,12 @@ async function main() {
   apiRouter.use('/search', await search(searchEnv));
   apiRouter.use('/gitlab', await gitlab(gitlabEnv));
   apiRouter.use('/form-data', await formData(formDataEnv)); // for custom dynamic form
-
+  // Generates our full open api document
+  documentBuilder.generatePathsObject(baseapp);
+  apiRouter.use(
+    '/openapispec',
+    await openapispec(openapispecEnv, documentBuilder.build()),
+  );
 
   // Add backends ABOVE this line; this 404 handler is the catch-all fallback
   apiRouter.use(notFoundHandler());
@@ -118,7 +138,7 @@ async function main() {
   });
 }
 
-if(module.hot){
+if (module.hot) {
   module.hot.accept();
 }
 

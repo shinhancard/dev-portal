@@ -36,6 +36,7 @@ backend:
     allow:
       - host: 'localhost'
       - host: 'localhost:7007'
+      - host: 'swa-backstage.shrnd.link'
 integrations:
   github:
     - host: github.com
@@ -96,7 +97,7 @@ catalog:
     - type: file
       target: ../../catalog-info.yaml
       rules:
-        - allow: [Component]
+        - allow: [Component, System, API]
 
     # url template
     - type: url

@@ -1,4 +1,17 @@
 apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: shinhancard-develop-portal
+  description: 신한카드 개발자 포탈 시스템. component(dev-portal), api(dev-portal-api), cd(dev-portal-flux-cd)
+  links:
+    - url: https://swa-backstage.shrnd.link
+      title: dev portal production link
+      icon: dashboard
+spec:
+  owner: shinhancard
+  domain: shinhancard
+---
+apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: dev-portal
@@ -29,5 +42,22 @@ spec:
   type: website
   owner: shinhancard
   lifecycle: experimental
-  children:
-    - dev-portal-flux-cd
+  system: shinhancard-develop-portal
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: dev-portal
+  description: shinhancard dev portal API
+  links:
+    - url: https://swa-backstage.shrnd.link
+      title: dev portal production link
+      icon: dashboard
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: shinhancard
+  definition:
+    $text: https://swa-backstage.shrnd.link/api/openapispec/swagger.json
+  system: shinhancard-develop-portal

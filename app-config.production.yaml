@@ -229,7 +229,7 @@ catalog:
     - type: file
       target: catalog-info.yaml
       rules:
-        - allow: [Component]
+        - allow: [Component, System, API]
 
     # url template
     - type: url
