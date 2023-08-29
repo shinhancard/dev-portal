@@ -118,9 +118,11 @@ async function main() {
   apiRouter.use('/form-data', await formData(formDataEnv)); // for custom dynamic form
   // Generates our full open api document
   documentBuilder.generatePathsObject(baseapp);
+  const apidoc = documentBuilder.build();
+  console.log(apidoc);
   apiRouter.use(
     '/openapispec',
-    await openapispec(openapispecEnv, documentBuilder.build()),
+    await openapispec(openapispecEnv, apidoc),
   );
 
   // Add backends ABOVE this line; this 404 handler is the catch-all fallback
