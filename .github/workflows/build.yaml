@@ -10,7 +10,10 @@ env:
   EKS_CLUSTER: SHCW-AN2-RND-EKS-1
   CONTAINER_NAME: backstage
   AWS_REGION : ap-northeast-2
-  CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/node_modules
+  CACHED_DEPENDENCY_PATHS: |
+    ${{ github.workspace }}/node_modules
+    ${{ github.workspace }}/packages/app/node_modules
+    ${{ github.workspace }}/packages/backend/node_modules
   
 permissions:
   id-token: write   
