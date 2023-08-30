@@ -130,7 +130,14 @@ async function main() {
         '/openapispec',
         await openapispec(openapispecEnv, documentBuilder.build()),
       ),
-    );
+    )
+    .catch(e => {
+      console.log(e);
+      console.log('=========================================');
+      console.log(baseapp);
+      console.log('=========================================');
+      console.log(documentBuilder);
+    });
 
   // Add backends ABOVE this line; this 404 handler is the catch-all fallback
   apiRouter.use(notFoundHandler());
