@@ -121,6 +121,9 @@ async function main() {
   });
   makeRoute(apiRouter)
     .then(router => {
+      setTimeout(function rest() {
+        console.log('sleep');
+      }, 3000);
       console.log(router);
       baseapp.use(router);
     })
