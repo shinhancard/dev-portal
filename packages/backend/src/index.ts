@@ -134,9 +134,7 @@ async function main() {
 
   await service
     .start()
-    .then(server => {
-      documentBuilder.generatePathsObject(server);
-    })
+    .then()
     .catch(err => {
       console.log(err);
       process.exit(1);
