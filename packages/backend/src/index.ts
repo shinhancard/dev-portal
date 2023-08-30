@@ -37,16 +37,6 @@ import formData from './plugins/formData';
 import { DocumentBuilder } from 'express-openapi-generator';
 import openapispec from './plugins/openapispec';
 
-// This initializes and creates our document builder interface
-const documentBuilder = DocumentBuilder.initializeDocument({
-  openapi: '3.0.1',
-  info: {
-    title: 'A example document',
-    version: '1',
-  },
-  paths: {}, // You don't need to include any path objects, those will be generated later
-});
-const baseapp = express();
 function makeCreateEnv(config: Config) {
   const root = getRootLogger();
   const reader = UrlReaders.default({ logger: root, config });
@@ -105,6 +95,7 @@ async function main() {
   const formDataEnv = useHotMemoize(module, () => createEnv('form-data')); // for custom dynamic form
   const openapispecEnv = useHotMemoize(module, () => createEnv('openapispec'));
 
+  const baseapp = express();
   const apiRouter = Router();
   baseapp.use(express.json());
   apiRouter.use('/catalog', await catalog(catalogEnv));
@@ -117,6 +108,16 @@ async function main() {
   apiRouter.use('/form-data', await formData(formDataEnv)); // for custom dynamic form
   // Generates our full open api document
   baseapp.use(apiRouter);
+
+  // This initializes and creates our document builder interface
+  const documentBuilder = DocumentBuilder.initializeDocument({
+    openapi: '3.0.1',
+    info: {
+      title: 'A example document',
+      version: '1',
+    },
+    paths: {}, // You don't need to include any path objects, those will be generated later
+  });
   documentBuilder.generatePathsObject(baseapp);
   const apidoc = documentBuilder.build();
   console.log(apidoc);
@@ -131,10 +132,15 @@ async function main() {
     .addRouter('/api', apiRouter)
     .addRouter('', await app(appEnv));
 
-  await service.start().catch(err => {
-    console.log(err);
-    process.exit(1);
-  });
+  await service
+    .start()
+    .then(server => {
+      documentBuilder.generatePathsObject(server);
+    })
+    .catch(err => {
+      console.log(err);
+      process.exit(1);
+    });
 }
 
 if (module.hot) {
