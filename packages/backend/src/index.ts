@@ -120,7 +120,10 @@ async function main() {
     paths: {}, // You don't need to include any path objects, those will be generated later
   });
   makeRoute(apiRouter)
-    .then(router => baseapp.use(router))
+    .then(router => {
+      console.log(router);
+      baseapp.use(router);
+    })
     .then(() => documentBuilder.generatePathsObject(baseapp))
     .then(async () =>
       apiRouter.use(
