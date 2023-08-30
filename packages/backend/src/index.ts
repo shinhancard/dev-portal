@@ -98,16 +98,17 @@ async function main() {
   const baseapp = express();
   const apiRouter = Router();
   baseapp.use(express.json());
-  apiRouter.use('/catalog', await catalog(catalogEnv));
-  apiRouter.use('/scaffolder', await scaffolder(scaffolderEnv));
-  apiRouter.use('/auth', await auth(authEnv));
-  apiRouter.use('/techdocs', await techdocs(techdocsEnv));
-  apiRouter.use('/proxy', await proxy(proxyEnv));
-  apiRouter.use('/search', await search(searchEnv));
-  apiRouter.use('/gitlab', await gitlab(gitlabEnv));
-  apiRouter.use('/form-data', await formData(formDataEnv)); // for custom dynamic form
-  // Generates our full open api document
-  baseapp.use(apiRouter);
+  async function makeRoute(router: express.Router) {
+    router.use('/catalog', await catalog(catalogEnv));
+    router.use('/scaffolder', await scaffolder(scaffolderEnv));
+    router.use('/auth', await auth(authEnv));
+    router.use('/techdocs', await techdocs(techdocsEnv));
+    router.use('/proxy', await proxy(proxyEnv));
+    router.use('/search', await search(searchEnv));
+    router.use('/gitlab', await gitlab(gitlabEnv));
+    router.use('/form-data', await formData(formDataEnv)); // for custom dynamic form
+    return router;
+  } // Generates our full open api document
 
   // This initializes and creates our document builder interface
   const documentBuilder = DocumentBuilder.initializeDocument({
@@ -118,10 +119,15 @@ async function main() {
     },
     paths: {}, // You don't need to include any path objects, those will be generated later
   });
-  documentBuilder.generatePathsObject(baseapp);
-  const apidoc = documentBuilder.build();
-  console.log(apidoc);
-  apiRouter.use('/openapispec', await openapispec(openapispecEnv, apidoc));
+  makeRoute(apiRouter)
+    .then(router => baseapp.use(router))
+    .then(() => documentBuilder.generatePathsObject(baseapp))
+    .then(async () =>
+      apiRouter.use(
+        '/openapispec',
+        await openapispec(openapispecEnv, documentBuilder.build()),
+      ),
+    );
 
   // Add backends ABOVE this line; this 404 handler is the catch-all fallback
   apiRouter.use(notFoundHandler());
