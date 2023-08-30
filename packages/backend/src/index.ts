@@ -98,15 +98,6 @@ async function main() {
   const baseapp = express();
   const apiRouter = Router();
   baseapp.use(express.json());
-  apiRouter.use('/catalog', await catalog(catalogEnv));
-  // apiRouter.use('/scaffolder', await scaffolder(scaffolderEnv));
-  // apiRouter.use('/auth', await auth(authEnv));
-  // apiRouter.use('/techdocs', await techdocs(techdocsEnv));
-  // apiRouter.use('/proxy', await proxy(proxyEnv));
-  // apiRouter.use('/search', await search(searchEnv));
-  // apiRouter.use('/gitlab', await gitlab(gitlabEnv));
-  // apiRouter.use('/form-data', await formData(formDataEnv)); // for custom dynamic form// Generates our full open api document
-
   // This initializes and creates our document builder interface
   const documentBuilder = DocumentBuilder.initializeDocument({
     openapi: '3.0.1',
@@ -116,12 +107,25 @@ async function main() {
     },
     paths: {}, // You don't need to include any path objects, those will be generated later
   });
-  baseapp.use(apiRouter);
-  documentBuilder.generatePathsObject(baseapp);
+  await catalog(catalogEnv).then(catalogRoute => {
+    apiRouter.use('/catalog', catalogRoute);
+
+    baseapp.use(apiRouter);
+    documentBuilder.generatePathsObject(baseapp);
+    console.log(documentBuilder.build());
+  });
   apiRouter.use(
     '/openapispec',
     await openapispec(openapispecEnv, documentBuilder.build()),
   );
+  apiRouter.use('/catalog', await catalog(catalogEnv));
+  // apiRouter.use('/scaffolder', await scaffolder(scaffolderEnv));
+  // apiRouter.use('/auth', await auth(authEnv));
+  // apiRouter.use('/techdocs', await techdocs(techdocsEnv));
+  // apiRouter.use('/proxy', await proxy(proxyEnv));
+  // apiRouter.use('/search', await search(searchEnv));
+  // apiRouter.use('/gitlab', await gitlab(gitlabEnv));
+  // apiRouter.use('/form-data', await formData(formDataEnv)); // for custom dynamic form// Generates our full open api document
 
   // Add backends ABOVE this line; this 404 handler is the catch-all fallback
   apiRouter.use(notFoundHandler());
