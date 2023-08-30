@@ -23,17 +23,17 @@ import { TaskScheduler } from '@backstage/backend-tasks';
 import { Config } from '@backstage/config';
 import healthcheck from './plugins/healthcheck';
 import app from './plugins/app';
-// import auth from './plugins/auth';
+import auth from './plugins/auth';
 import catalog from './plugins/catalog';
-// import scaffolder from './plugins/scaffolder';
-// import proxy from './plugins/proxy';
-// import techdocs from './plugins/techdocs';
-// import search from './plugins/search';
-// import gitlab from './plugins/gitlab';
+import scaffolder from './plugins/scaffolder';
+import proxy from './plugins/proxy';
+import techdocs from './plugins/techdocs';
+import search from './plugins/search';
+import gitlab from './plugins/gitlab';
 import { PluginEnvironment } from './types';
 import { ServerPermissionClient } from '@backstage/plugin-permission-node';
 import { DefaultIdentityClient } from '@backstage/plugin-auth-node';
-// import formData from './plugins/formData';
+import formData from './plugins/formData';
 import { DocumentBuilder } from 'express-openapi-generator';
 import openapispec from './plugins/openapispec';
 
@@ -85,19 +85,31 @@ async function main() {
 
   const healthcheckEnv = useHotMemoize(module, () => createEnv('healthcheck'));
   const catalogEnv = useHotMemoize(module, () => createEnv('catalog'));
-  // const scaffolderEnv = useHotMemoize(module, () => createEnv('scaffolder'));
-  // const authEnv = useHotMemoize(module, () => createEnv('auth'));
-  // const proxyEnv = useHotMemoize(module, () => createEnv('proxy'));
-  // const techdocsEnv = useHotMemoize(module, () => createEnv('techdocs'));
-  // const searchEnv = useHotMemoize(module, () => createEnv('search'));
+  const scaffolderEnv = useHotMemoize(module, () => createEnv('scaffolder'));
+  const authEnv = useHotMemoize(module, () => createEnv('auth'));
+  const proxyEnv = useHotMemoize(module, () => createEnv('proxy'));
+  const techdocsEnv = useHotMemoize(module, () => createEnv('techdocs'));
+  const searchEnv = useHotMemoize(module, () => createEnv('search'));
   const appEnv = useHotMemoize(module, () => createEnv('app'));
-  // const gitlabEnv = useHotMemoize(module, () => createEnv('gitlab'));
-  // const formDataEnv = useHotMemoize(module, () => createEnv('form-data')); // for custom dynamic form
+  const gitlabEnv = useHotMemoize(module, () => createEnv('gitlab'));
+  const formDataEnv = useHotMemoize(module, () => createEnv('form-data')); // for custom dynamic form
   const openapispecEnv = useHotMemoize(module, () => createEnv('openapispec'));
 
   const baseapp = express();
   const apiRouter = Router();
   baseapp.use(express.json());
+  async function makeRoute(router: express.Router) {
+    router.use('/catalog', await catalog(catalogEnv));
+    router.use('/scaffolder', await scaffolder(scaffolderEnv));
+    router.use('/auth', await auth(authEnv));
+    router.use('/techdocs', await techdocs(techdocsEnv));
+    router.use('/proxy', await proxy(proxyEnv));
+    router.use('/search', await search(searchEnv));
+    router.use('/gitlab', await gitlab(gitlabEnv));
+    router.use('/form-data', await formData(formDataEnv)); // for custom dynamic form
+    return router;
+  } // Generates our full open api document
+
   // This initializes and creates our document builder interface
   const documentBuilder = DocumentBuilder.initializeDocument({
     openapi: '3.0.1',
@@ -107,25 +119,17 @@ async function main() {
     },
     paths: {}, // You don't need to include any path objects, those will be generated later
   });
-  await catalog(catalogEnv).then(catalogRoute => {
-    apiRouter.use('/catalog', catalogRoute);
-
-    baseapp.use(apiRouter);
+  try {
+    const router = await makeRoute(apiRouter);
+    baseapp.use(router);
     documentBuilder.generatePathsObject(baseapp);
-    console.log(documentBuilder.build());
-  });
-  apiRouter.use(
-    '/openapispec',
-    await openapispec(openapispecEnv, documentBuilder.build()),
-  );
-  apiRouter.use('/catalog', await catalog(catalogEnv));
-  // apiRouter.use('/scaffolder', await scaffolder(scaffolderEnv));
-  // apiRouter.use('/auth', await auth(authEnv));
-  // apiRouter.use('/techdocs', await techdocs(techdocsEnv));
-  // apiRouter.use('/proxy', await proxy(proxyEnv));
-  // apiRouter.use('/search', await search(searchEnv));
-  // apiRouter.use('/gitlab', await gitlab(gitlabEnv));
-  // apiRouter.use('/form-data', await formData(formDataEnv)); // for custom dynamic form// Generates our full open api document
+    apiRouter.use(
+      '/openapispec',
+      await openapispec(openapispecEnv, documentBuilder.build()),
+    );
+  } catch (e) {
+    console.error('Error setting up routes:', e);
+  }
 
   // Add backends ABOVE this line; this 404 handler is the catch-all fallback
   apiRouter.use(notFoundHandler());
