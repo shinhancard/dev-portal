@@ -58,6 +58,490 @@ spec:
   type: openapi
   lifecycle: experimental
   owner: shinhancard
-  definition:
-    $text: https://swa-backstage.shrnd.link/api/openapispec/swagger.json
+  definition: |
+    {
+      "openapi": "3.0.1",
+      "info": {
+        "title": "A example document",
+        "version": "1"
+      },
+      "host": "swa-backstage.shrnd.link",
+      "paths": {
+        "/catalog/refresh": {
+          "post": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/catalog/.well-known/backstage/permissions/metadata": {
+          "get": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/catalog/.well-known/backstage/permissions/apply-conditions": {
+          "post": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/catalog/entities": {
+          "get": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/catalog/entities/by-query": {
+          "get": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/catalog/entities/by-uid/{uid}": {
+          "get": {
+            "parameters": [
+              {
+                "name": "uid",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          },
+          "delete": {
+            "parameters": [
+              {
+                "name": "uid",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/catalog/entities/by-name/{kind}/{namespace}/{name}": {
+          "get": {
+            "parameters": [
+              {
+                "name": "kind",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "namespace",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "name",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/catalog/entities/by-name/{kind}/{namespace}/{name}/ancestry": {
+          "get": {
+            "parameters": [
+              {
+                "name": "kind",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "namespace",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "name",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/catalog/entities/by-refs": {
+          "post": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/catalog/entity-facets": {
+          "get": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/catalog/locations": {
+          "post": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          },
+          "get": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/catalog/locations/{id}": {
+          "get": {
+            "parameters": [
+              {
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          },
+          "delete": {
+            "parameters": [
+              {
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/catalog/analyze-location": {
+          "post": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/catalog/validate-entity": {
+          "post": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/auth/github/start": {
+          "get": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/auth/github/handler/frame": {
+          "get": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          },
+          "post": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/auth/github/logout": {
+          "post": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/auth/github/refresh": {
+          "get": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          },
+          "post": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/auth/.well-known/openid-configuration": {
+          "get": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/auth/.well-known/jwks.json": {
+          "get": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/auth/v1/token": {
+          "get": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/auth/v1/userinfo": {
+          "get": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/techdocs/metadata/techdocs/{namespace}/{kind}/{name}": {
+          "get": {
+            "parameters": [
+              {
+                "name": "namespace",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "kind",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "name",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/techdocs/metadata/entity/{namespace}/{kind}/{name}": {
+          "get": {
+            "parameters": [
+              {
+                "name": "namespace",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "kind",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "name",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/techdocs/sync/{namespace}/{kind}/{name}": {
+          "get": {
+            "parameters": [
+              {
+                "name": "namespace",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "kind",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "name",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/search/query": {
+          "get": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/form-data/example/teams": {
+          "get": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/form-data/scaffolder/get/dependency/type": {
+          "get": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/form-data/scaffolder/get/dependency/name": {
+          "get": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        },
+        "/form-data/scaffolder/get/dependency/version": {
+          "get": {
+            "responses": {
+              "default": {
+                "description": "Responses object not provided for this route"
+              }
+            }
+          }
+        }
+      }
+    }
   system: shinhancard-develop-portal
