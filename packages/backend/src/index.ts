@@ -120,8 +120,8 @@ async function main() {
     paths: {}, // You don't need to include any path objects, those will be generated later
   });
   try {
-    const router = await makeRoute(apiRouter);
-    baseapp.use(router);
+    // const router = await makeRoute(apiRouter);
+    baseapp.use(await makeRoute(apiRouter));
     console.log(baseapp._router.stack[3].handle.stack[0]);
     documentBuilder.generatePathsObject(baseapp);
     apiRouter.use(
