@@ -122,7 +122,7 @@ async function main() {
   try {
     // const router = await makeRoute(apiRouter);
     baseapp.use(await makeRoute(apiRouter));
-    console.log(baseapp._router.stack[3].handle.stack[0]);
+    console.log(baseapp._router.stack[3].handle);
     documentBuilder.generatePathsObject(baseapp);
     apiRouter.use(
       '/openapispec',
