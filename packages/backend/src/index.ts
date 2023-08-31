@@ -5,7 +5,6 @@
  *
  * Happy hacking!
  */
-import express from 'express';
 import Router from 'express-promise-router';
 import {
   createServiceBuilder,
@@ -34,8 +33,6 @@ import { PluginEnvironment } from './types';
 import { ServerPermissionClient } from '@backstage/plugin-permission-node';
 import { DefaultIdentityClient } from '@backstage/plugin-auth-node';
 import formData from './plugins/formData';
-import { DocumentBuilder } from 'express-openapi-generator';
-import openapispec from './plugins/openapispec';
 
 function makeCreateEnv(config: Config) {
   const root = getRootLogger();
@@ -93,12 +90,8 @@ async function main() {
   const appEnv = useHotMemoize(module, () => createEnv('app'));
   const gitlabEnv = useHotMemoize(module, () => createEnv('gitlab'));
   const formDataEnv = useHotMemoize(module, () => createEnv('form-data')); // for custom dynamic form
-  const openapispecEnv = useHotMemoize(module, () => createEnv('openapispec'));
 
-  const baseapp = express();
   const apiRouter = Router();
-  baseapp.use(express.json());
-  baseapp.use(apiRouter);
   // async function makeRoute(router: express.Router) {
   apiRouter.use('/catalog', await catalog(catalogEnv));
   apiRouter.use('/scaffolder', await scaffolder(scaffolderEnv));
@@ -108,30 +101,6 @@ async function main() {
   apiRouter.use('/search', await search(searchEnv));
   apiRouter.use('/gitlab', await gitlab(gitlabEnv));
   apiRouter.use('/form-data', await formData(formDataEnv)); // for custom dynamic form
-  //   return router;
-  // } // Generates our full open api document
-
-  // This initializes and creates our document builder interface
-  const documentBuilder = DocumentBuilder.initializeDocument({
-    openapi: '3.0.1',
-    info: {
-      title: 'A example document',
-      version: '1',
-    },
-    paths: {}, // You don't need to include any path objects, those will be generated later
-  });
-  try {
-    // const router = await makeRoute(apiRouter);
-    // baseapp.use(await makeRoute(apiRouter));
-    console.log(baseapp._router.stack[3].handle);
-    documentBuilder.generatePathsObject(baseapp);
-    apiRouter.use(
-      '/openapispec',
-      await openapispec(openapispecEnv, documentBuilder.build()),
-    );
-  } catch (e) {
-    console.error('Error setting up routes:', e);
-  }
 
   // Add backends ABOVE this line; this 404 handler is the catch-all fallback
   apiRouter.use(notFoundHandler());
