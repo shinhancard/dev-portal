@@ -98,17 +98,18 @@ async function main() {
   const baseapp = express();
   const apiRouter = Router();
   baseapp.use(express.json());
-  async function makeRoute(router: express.Router) {
-    router.use('/catalog', await catalog(catalogEnv));
-    router.use('/scaffolder', await scaffolder(scaffolderEnv));
-    router.use('/auth', await auth(authEnv));
-    router.use('/techdocs', await techdocs(techdocsEnv));
-    router.use('/proxy', await proxy(proxyEnv));
-    router.use('/search', await search(searchEnv));
-    router.use('/gitlab', await gitlab(gitlabEnv));
-    router.use('/form-data', await formData(formDataEnv)); // for custom dynamic form
-    return router;
-  } // Generates our full open api document
+  baseapp.use(apiRouter);
+  // async function makeRoute(router: express.Router) {
+  apiRouter.use('/catalog', await catalog(catalogEnv));
+  apiRouter.use('/scaffolder', await scaffolder(scaffolderEnv));
+  apiRouter.use('/auth', await auth(authEnv));
+  apiRouter.use('/techdocs', await techdocs(techdocsEnv));
+  apiRouter.use('/proxy', await proxy(proxyEnv));
+  apiRouter.use('/search', await search(searchEnv));
+  apiRouter.use('/gitlab', await gitlab(gitlabEnv));
+  apiRouter.use('/form-data', await formData(formDataEnv)); // for custom dynamic form
+  //   return router;
+  // } // Generates our full open api document
 
   // This initializes and creates our document builder interface
   const documentBuilder = DocumentBuilder.initializeDocument({
@@ -121,7 +122,7 @@ async function main() {
   });
   try {
     // const router = await makeRoute(apiRouter);
-    baseapp.use(await makeRoute(apiRouter));
+    // baseapp.use(await makeRoute(apiRouter));
     console.log(baseapp._router.stack[3].handle);
     documentBuilder.generatePathsObject(baseapp);
     apiRouter.use(
@@ -141,13 +142,10 @@ async function main() {
     .addRouter('/api', apiRouter)
     .addRouter('', await app(appEnv));
 
-  await service
-    .start()
-    .then()
-    .catch(err => {
-      console.log(err);
-      process.exit(1);
-    });
+  await service.start().catch(err => {
+    console.log(err);
+    process.exit(1);
+  });
 }
 
 if (module.hot) {
