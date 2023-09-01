@@ -21,6 +21,11 @@ backend:
     methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
     credentials: true
 
+  reading:
+    allow:
+      - host: 'localhost'
+      - host: 'localhost:7007'
+      - host: 'swa-backstage.shrnd.link'
   # config options: https://node-postgres.com/api/client
   database:
     #client: better-sqlite3
