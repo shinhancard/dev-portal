@@ -5,7 +5,6 @@
  *
  * Happy hacking!
  */
-
 import Router from 'express-promise-router';
 import {
   createServiceBuilder,
@@ -93,6 +92,7 @@ async function main() {
   const formDataEnv = useHotMemoize(module, () => createEnv('form-data')); // for custom dynamic form
 
   const apiRouter = Router();
+  // async function makeRoute(router: express.Router) {
   apiRouter.use('/catalog', await catalog(catalogEnv));
   apiRouter.use('/scaffolder', await scaffolder(scaffolderEnv));
   apiRouter.use('/auth', await auth(authEnv));
@@ -101,7 +101,6 @@ async function main() {
   apiRouter.use('/search', await search(searchEnv));
   apiRouter.use('/gitlab', await gitlab(gitlabEnv));
   apiRouter.use('/form-data', await formData(formDataEnv)); // for custom dynamic form
-
 
   // Add backends ABOVE this line; this 404 handler is the catch-all fallback
   apiRouter.use(notFoundHandler());
@@ -118,7 +117,7 @@ async function main() {
   });
 }
 
-if(module.hot){
+if (module.hot) {
   module.hot.accept();
 }
 

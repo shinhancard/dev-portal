@@ -34,7 +34,6 @@
     "@backstage/plugin-search-backend-node": "^1.2.2",
     "@backstage/plugin-techdocs-backend": "^1.6.3",
     "@immobiliarelabs/backstage-plugin-gitlab-backend": "^6.0.0",
-
     "@premise/plugin-form-data-backend": "^0.0.1",
     "app": "link:../app",
     "better-sqlite3": "^8.0.0",

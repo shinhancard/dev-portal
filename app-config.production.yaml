@@ -1,6 +1,6 @@
 app:
   title: Scaffolded Backstage App
-  baseUrl: http://localhost:7007
+  baseUrl: https://swa-backstage.shrnd.link
 
 organization:
   name: ShinhanCard
@@ -11,12 +11,21 @@ backend:
   # reachable not just from within the backend host, but from all of your
   # callers. When its value is "http://localhost:7007", it's strictly private
   # and can't be reached by others.
-  baseUrl: http://localhost:7007
+  baseUrl: https://swa-backstage.shrnd.link
   # The listener can also be expressed as a single <host>:<port> string. In this case we bind to
   # all interfaces, the most permissive setting. The right value depends on your specific deployment.
   listen:
     port: 7007
+  cors:
+    origin: https://swa-backstage.shrnd.link
+    methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
+    credentials: true
 
+  reading:
+    allow:
+      - host: 'localhost'
+      - host: 'localhost:7007'
+      - host: 'swa-backstage.shrnd.link'
   # config options: https://node-postgres.com/api/client
   database:
     #client: better-sqlite3
@@ -46,6 +55,9 @@ integrations:
     # - host: ghe.example.net
     #   apiBaseUrl: https://ghe.example.net/api/v3
     #   token: ${GHE_TOKEN}
+  gitlab:
+    - host: gitlab.com
+      token: ${GITLAB_TOKEN}
 
 # File: app-config.yaml
 
@@ -84,7 +96,8 @@ techdocs:
       # or README.md in case a default <docs-dir>/index.md is not provided.
       # Note that https://www.mkdocs.org/user-guide/configuration/#edit_uri behavior
       # will be broken in these scenarios.
-      legacyCopyReadmeMdToIndexMd: false
+      # docs/index.md 파일이 없으면 README.md를 index.md로 제너레이션한다.
+      legacyCopyReadmeMdToIndexMd: true
 
   # techdocs.builder can be either 'local' or 'external'.
   # Using the default build strategy, if builder is set to 'local' and you open a TechDocs page,
@@ -199,6 +212,15 @@ techdocs:
     # default value is 1000
     readTimeout: 500
 
+auth:
+  # see https://backstage.io/docs/auth/ to learn about auth providers
+  environment: production
+  providers:
+    github:
+      production:
+        clientId: ${AUTH_GITHUB_CLIENT_ID}
+        clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
+
 catalog:
   import:
     entityFilename: catalog-info.yaml
@@ -207,8 +229,12 @@ catalog:
     - allow: [Component, System, API, Resource, Location]
   locations:
     # Local example data, file locations are relative to the backend process, typically `packages/backend`
-    - type: file
-      target: ../../examples/entities.yaml
+#    - type: file
+#      target: ../../examples/entities.yaml
+    - type: url
+      target: https://github.com/shinhancard/dev-portal/blob/main/catalog-info.yaml
+      rules:
+        - allow: [Component, System, API]
 
     # url template
     - type: url
@@ -219,12 +245,16 @@ catalog:
       target: https://github.com/shinhancard/dev-portal-catalog-template/blob/main/react-template/template.yaml
       rules:
         - allow: [Template]
+    - type: url
+      target: https://github.com/shinhancard/dev-portal-catalog-template/blob/develop/frd-core-template/template.yaml
+      rules:
+        - allow: [ Template ]
 
     # Local example organizational data
-    - type: file
-      target: ../../examples/org.yaml
-      rules:
-        - allow: [User, Group]
+#    - type: file
+#      target: ../../examples/org.yaml
+#      rules:
+#        - allow: [User, Group]
 
     ## Uncomment these lines to add more example data
     # - type: url

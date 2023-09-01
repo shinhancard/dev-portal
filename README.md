@@ -11,6 +11,15 @@ cd ./storybook && yarn install
 yarn dev
 ```
 
+## 개발환경설정
+- 다음과 같은 토큰이 필요하다
+
+|name|용도|발급방법|
+|----|---|-----|
+|GITHUB_TOKEN|github repo 접근용|github 설정 -> developer mode에서 발급 후 IDE의 환경변수로 등록|
+|AUTH_GITHUB_CLIENT_ID|github oauth 로그인 연동|```b5de16601ef560ba3c87```|
+|AUTH_GITHUB_CLIENT_SECRET|github oauth 로그인 연동|shinhancard org maintainer에게 문의|
+
 ## software catalog 사용
 
 ### 구조
