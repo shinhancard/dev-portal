@@ -231,8 +231,8 @@ catalog:
     # Local example data, file locations are relative to the backend process, typically `packages/backend`
 #    - type: file
 #      target: ../../examples/entities.yaml
-    - type: file
-      target: catalog-info.yaml
+    - type: url
+      target: https://github.com/shinhancard/dev-portal/blob/main/catalog-info.yaml
       rules:
         - allow: [Component, System, API]
 
