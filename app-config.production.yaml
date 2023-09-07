@@ -1,5 +1,5 @@
 app:
-  title: Scaffolded Backstage App
+  title: 신한카드 개발자 포탈
   baseUrl: https://swa-backstage.shrnd.link
 
 organization:

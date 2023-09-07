@@ -6,7 +6,6 @@ yarn install
 #techdocs local 실행을 위한 준비
 pip install mkdocs mkdocs-techdocs-core
 
-cd ./storybook && yarn install
 
 yarn dev
 ```

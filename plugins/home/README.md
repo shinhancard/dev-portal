@@ -231,7 +231,7 @@ const defaultConfig = [
     y: 0,
     width: 12,
     height: 1,
-  },
+  },Ï
 ];
 
 <CustomHomepageGrid config={defaultConfig}>
