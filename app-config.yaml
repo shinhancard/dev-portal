@@ -1,5 +1,5 @@
 app:
-  title: Scaffolded Backstage App
+  title: 신한카드 개발자 포탈
   baseUrl: http://localhost:3000
 
 organization:
