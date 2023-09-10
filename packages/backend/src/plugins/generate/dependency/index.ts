@@ -1,1 +1,0 @@
-export { createNewFileAction } from "./dependcy";
